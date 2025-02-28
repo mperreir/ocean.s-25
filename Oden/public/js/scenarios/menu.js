@@ -8,7 +8,7 @@ function Menu() {
     
     let title = document.createElement("h1");
     title.textContent = "Choose a scenario";
-    let menu = newButton("Oden", Oden);
+    let menu = newButton("Fire Oil Spill", FireScenario);
 
     div.appendChild(title);
     div.appendChild(menu);

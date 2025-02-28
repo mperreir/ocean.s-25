@@ -1,5 +1,5 @@
 
-function Oden() {
+function FireScenario() {
     let body = document.querySelector("body");
     body.innerHTML = "";
 
