@@ -51,12 +51,20 @@ function generateMap(cols, rows) {
       //const isBase = x === gameState.base.x && y === gameState.base.y; // 判断是否为基地
 
       // 创建瓦片数据
-      map.set(`${x},${y}`, {
-        x, y,
-        // type: isBase ? 'base' : isOil ? 'oil' : 'sea', // 设置瓦片类型
-        type: isOil ? 'oil' : 'sea', // 设置瓦片类型
-        oilAmount: isOil ? Math.floor(Math.random() * 3) + 1 : 0 // 设置漏油量
-      });
+      if (x >= cols - 3 && y >= rows - 3) {
+        map.set(`${x},${y}`, {
+          x, y,
+          type: 'sand',
+          oilAmount: 0
+        });
+      } else {
+        map.set(`${x},${y}`, {
+          x, y,
+          // type: isBase ? 'base' : isOil ? 'oil' : 'sea', // 设置瓦片类型
+          type: isOil ? 'oil' : 'sea', // 设置瓦片类型
+          oilAmount: isOil ? Math.floor(Math.random() * 3) + 1 : 0 // 设置漏油量
+        });
+      }
     }
 
 }
@@ -87,7 +95,19 @@ function gameLoop() {
 
     // 绘制地图
     gameState.map.forEach(tile => {
-      const color = tile.type === 'oil' ? '#000000' : '#1E90FF'; // 漏油颜色，海洋颜色
+      let color; // 漏油颜色，海洋颜色
+
+      switch (tile.type) {
+        case ("oil"):
+          color = '#000000';
+          break;
+        case ("sand"):
+          color = "#C2B280";
+          break;
+        default:
+          color = '#1E90FF';
+      }
+
       // const color = tile.type === 'base' ? '#FFD700' : // 基地颜色
       // tile.type === 'oil' ? '#000000' : '#1E90FF'; // 漏油颜色，海洋颜色
       drawTile(tile.x, tile.y, color, canvas, ctx); // 绘制瓦片
@@ -117,7 +137,13 @@ function initGame() {
 
   canvas.width = window.innerWidth; // 设置 canvas 宽度
   canvas.height = window.innerHeight; // 设置 canvas 高度
-  gameState.map = generateMap(20, 20); // 生成地图
+
+  const width = 20;
+  const height = 20;
+  gameState.map = generateMap(width, height); // 生成地图
+
+  gameState.ship.x = width - 1;
+  gameState.ship.y = height - 1;
 
   // 加载船只图片
   const shipImage = new Image();
