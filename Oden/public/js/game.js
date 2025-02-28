@@ -2,6 +2,7 @@
  const TILE_SIZE = 40;
  const TILE_WIDTH = TILE_SIZE;
  const TILE_HEIGHT = TILE_SIZE;
+ const size_sand = 3;
 
  // 初始化游戏状态
  let gameState = {
@@ -51,7 +52,7 @@ function generateMap(cols, rows) {
       //const isBase = x === gameState.base.x && y === gameState.base.y; // 判断是否为基地
 
       // 创建瓦片数据
-      if (x >= cols - 3 && y >= rows - 3) {
+      if ((x >= cols - size_sand && y >= rows - size_sand - 1) || (x >= cols - size_sand - 1 && y >= rows - size_sand)) {
         map.set(`${x},${y}`, {
           x, y,
           type: 'sand',
@@ -95,22 +96,32 @@ function gameLoop() {
 
     // 绘制地图
     gameState.map.forEach(tile => {
-      let color; // 漏油颜色，海洋颜色
+      let color = new Image(); // 漏油颜色，海洋颜色
 
       switch (tile.type) {
         case ("oil"):
-          color = '#000000';
+          color.src = 'assets/oil.png';
           break;
         case ("sand"):
-          color = "#C2B280";
+          color.src = "assets/shore.png";
           break;
         default:
-          color = '#1E90FF';
+          color.src = 'assets/sea.png';
       }
 
-      // const color = tile.type === 'base' ? '#FFD700' : // 基地颜色
-      // tile.type === 'oil' ? '#000000' : '#1E90FF'; // 漏油颜色，海洋颜色
-      drawTile(tile.x, tile.y, color, canvas, ctx); // 绘制瓦片
+
+      const centerX = canvas.width / 2; // canvas 中心 x 坐标
+      const centerY = canvas.height / 2; // canvas 中心 y 坐标
+    
+      // 计算瓦片在 canvas 上的坐标
+      const tileX = tile.x * TILE_WIDTH + centerX - (TILE_WIDTH * 20 / 2);
+      const tileY = tile.y * TILE_HEIGHT + centerY - (TILE_HEIGHT * 20 / 2);
+
+      ctx.drawImage(color, tileX, tileY, 40, 40);
+
+      // // const color = tile.type === 'base' ? '#FFD700' : // 基地颜色
+      // // tile.type === 'oil' ? '#000000' : '#1E90FF'; // 漏油颜色，海洋颜色
+      // drawTile(tile.x, tile.y, color, canvas, ctx); // 绘制瓦片
     });
 
     // 绘制采集船
@@ -142,8 +153,8 @@ function initGame() {
   const height = 20;
   gameState.map = generateMap(width, height); // 生成地图
 
-  gameState.ship.x = width - 1;
-  gameState.ship.y = height - 1;
+  gameState.ship.x = width - size_sand - 1;
+  gameState.ship.y = height - size_sand - 1;
 
   // 加载船只图片
   const shipImage = new Image();

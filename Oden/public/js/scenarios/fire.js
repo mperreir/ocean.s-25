@@ -5,20 +5,20 @@ function FireScenario() {
 
     let canvas = document.createElement("canvas");
     canvas.setAttribute("id", "gameCanvas");
-    let divHud = document.createElement("div");
-    divHud.setAttribute("id", "hud");
-    let indications = document.createElement("div");
-    indications.innerHTML = "Use arrow keys to move";
-    let time = document.createElement("div");
-    time.innerHTML = 'Time: <span id="time" >0</span>'
+    // let divHud = document.createElement("div");
+    // divHud.setAttribute("id", "hud");
+    // let indications = document.createElement("div");
+    // indications.innerHTML = "Use arrow keys to move";
+    // let time = document.createElement("div");
+    // time.innerHTML = 'Time: <span id="time" >0</span>'
 
-    let menuBtn = newButton("Menu", Menu);
+    // let menuBtn = newButton("Menu", Menu);
 
     body.appendChild(canvas);
-    divHud.appendChild(indications);
-    divHud.appendChild(time);
-    divHud.appendChild(menuBtn);
-    body.appendChild(divHud);
+    // divHud.appendChild(indications);
+    // divHud.appendChild(time);
+    // divHud.appendChild(menuBtn);
+    // body.appendChild(divHud);
 
     initGame();
 }
