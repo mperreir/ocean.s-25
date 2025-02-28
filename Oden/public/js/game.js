@@ -80,38 +80,40 @@ function drawTile(x, y, color, canvas, ctx) {
 //  游戏循环
 function gameLoop() {
   const canvas = document.getElementById('gameCanvas');
-  const ctx = canvas.getContext('2d');
-  ctx.clearRect(0, 0, canvas.width, canvas.height); // 清空 canvas
 
-  // 绘制地图
-  gameState.map.forEach(tile => {
-    const color = tile.type === 'oil' ? '#000000' : '#1E90FF'; // 漏油颜色，海洋颜色
-    // const color = tile.type === 'base' ? '#FFD700' : // 基地颜色
-    // tile.type === 'oil' ? '#000000' : '#1E90FF'; // 漏油颜色，海洋颜色
-    drawTile(tile.x, tile.y, color, canvas, ctx); // 绘制瓦片
-  });
+  if (canvas !== null) {
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // 清空 canvas
 
-  // 绘制采集船
-  const centerX = canvas.width / 2; // canvas 中心 x 坐标
-  const centerY = canvas.height / 2; // canvas 中心 y 坐标
+    // 绘制地图
+    gameState.map.forEach(tile => {
+      const color = tile.type === 'oil' ? '#000000' : '#1E90FF'; // 漏油颜色，海洋颜色
+      // const color = tile.type === 'base' ? '#FFD700' : // 基地颜色
+      // tile.type === 'oil' ? '#000000' : '#1E90FF'; // 漏油颜色，海洋颜色
+      drawTile(tile.x, tile.y, color, canvas, ctx); // 绘制瓦片
+    });
 
-  // 计算船只在 canvas 上的坐标
-  const shipX = gameState.ship.x * TILE_WIDTH + centerX - (TILE_WIDTH * 20 / 2) + TILE_WIDTH / 2;
-  const shipY = gameState.ship.y * TILE_HEIGHT + centerY - (TILE_HEIGHT * 20 / 2) + TILE_HEIGHT / 2;
+    // 绘制采集船
+    const centerX = canvas.width / 2; // canvas 中心 x 坐标
+    const centerY = canvas.height / 2; // canvas 中心 y 坐标
 
-  // 如果船只图片已加载，则绘制图片
-  if (gameState.shipImage) {
-    ctx.drawImage(gameState.shipImage, shipX - 20, shipY - 20, 40, 40);
+    // 计算船只在 canvas 上的坐标
+    const shipX = gameState.ship.x * TILE_WIDTH + centerX - (TILE_WIDTH * 20 / 2) + TILE_WIDTH / 2;
+    const shipY = gameState.ship.y * TILE_HEIGHT + centerY - (TILE_HEIGHT * 20 / 2) + TILE_HEIGHT / 2;
+
+    // 如果船只图片已加载，则绘制图片
+    if (gameState.shipImage) {
+      ctx.drawImage(gameState.shipImage, shipX - 20, shipY - 20, 40, 40);
+    }
+
+    requestAnimationFrame(gameLoop); // 请求下一次动画帧
   }
-
-  requestAnimationFrame(gameLoop); // 请求下一次动画帧
 }
 
 // 初始化游戏
 function initGame() {
     // 获取 canvas 元素和 2D 渲染上下文
   const canvas = document.getElementById('gameCanvas');
-  const ctx = canvas.getContext('2d');
 
   canvas.width = window.innerWidth; // 设置 canvas 宽度
   canvas.height = window.innerHeight; // 设置 canvas 高度
