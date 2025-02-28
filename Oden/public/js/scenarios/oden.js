@@ -3,20 +3,22 @@ function Oden() {
     let body = document.querySelector("body");
     body.innerHTML = "";
 
-    let div = document.createElement("div");
-    div.classList.add("menu");
+    let canvas = document.createElement("canvas");
+    canvas.setAttribute("id", "gameCanvas");
+    let divHud = document.createElement("div");
+    divHud.setAttribute("id", "hud");
+    let indications = document.createElement("div");
+    indications.innerHTML = "Use arrow keys to move";
+    let time = document.createElement("div");
+    time.innerHTML = 'Time: <span id="time" >0</span>'
 
-    let title = document.createElement("h1");
-    title.textContent = "Oden";
-    let menu = newButton("Menu");
+    let menuBtn = newButton("Menu", Menu);
 
-    div.appendChild(title);
-    div.appendChild(menu);
+    body.appendChild(canvas);
+    divHud.appendChild(indications);
+    divHud.appendChild(time);
+    divHud.appendChild(menuBtn);
+    body.appendChild(divHud);
 
-    body.appendChild(div);
-
-    menu.addEventListener("click", (e) => {
-        Menu();
-    });
-
+    initGame();
 }

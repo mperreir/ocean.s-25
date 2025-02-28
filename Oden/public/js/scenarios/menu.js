@@ -8,16 +8,12 @@ function Menu() {
     
     let title = document.createElement("h1");
     title.textContent = "Choose a scenario";
-    let menu = newButton("Oden");
+    let menu = newButton("Oden", Oden);
 
     div.appendChild(title);
     div.appendChild(menu);
 
     body.appendChild(div);
-
-    menu.addEventListener("click", (e) => {
-        Oden();
-    });
 }
 
 document.addEventListener("DOMContentLoaded", (event) => {

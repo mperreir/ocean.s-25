@@ -1,50 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Oil Cleanup Game</title>
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background-image: url('./sea.png');
-      background-size: cover;
-      font-family: sans-serif;
-    }
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    canvas {
-      display: block;
-      /* background-color: #ADD8E6; Light blue sea color */
-    }
-
-    #hud {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      background: rgba(0, 0, 0, 0.7);
-      color: #ffffff;
-      padding: 15px;
-      border-radius: 5px;
-      font-size: 16px;
-    }
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh; /* 确保占据整个视口高度 */
-    }
-  </style>
-</head>
-
-<body>
-  <div>
-    <canvas id="gameCanvas"></canvas>
-    <div id="hud">
-      <!-- <div>Inventory: <span id="inventory">0</span>/10</div> -->
-      <div>Use arrow keys to move</div>
-      <div>Time: <span id="time" >0</span></div>
-    </div>
-  </div>
-  <script src="index.js"></script>
-</body>
-
+        <script src="js/scenarios/oden.js" defer></script>
+        <script src="js/scenarios/menu.js" defer></script>
+        <script src="js/utils.js" defer></script>
+        <script src="js/game.js" defer></script>
+        <link href="css/style.css" rel="stylesheet">
+        <title>Project Oden</title>
+    </head>
+    <body>
+    </body>
 </html>

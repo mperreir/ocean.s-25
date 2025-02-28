@@ -1,4 +1,32 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-image: url('./sea.png');
+    background-size: cover;
+    font-family: sans-serif;
+  }
 
+  canvas {
+    display: block;
+    /* background-color: #ADD8E6; Light blue sea color */
+  }
+
+  #hud {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 确保占据整个视口高度 */
+  }
 
 .menu {
     display: block;
