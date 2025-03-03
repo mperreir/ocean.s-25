@@ -27,9 +27,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /* height: 100vh; */
   margin: 0;
-  background: linear-gradient(to bottom, #87CEFA, #1E90FF); /* 渐变海洋背景 */
+  /* background: linear-gradient(to bottom, #87CEFA, #1E90FF); 渐变海洋背景 */
 }
 
 /* 菜单容器 */
@@ -38,10 +38,10 @@ body {
   max-width: 400px;
   padding: 20px;
   text-align: center;
-  background: rgba(255, 255, 255, 0.2); /* 半透明背景 */
-  border-radius: 15px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px); /* 毛玻璃效果 */
+  /* background: rgba(255, 255, 255, 0.2); 半透明背景 */
+  /* border-radius: 15px; */
+  /* box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); */
+  /*backdrop-filter: blur(10px);*/ /* 毛玻璃效果 */
 }
 
 /* 标题 */
@@ -55,6 +55,7 @@ body {
                -3px -3px 10px rgba(255, 255, 255, 0.5);
   line-height: 1.1;
   margin-bottom: 5px; /* 减少与 Clean Up 的距离 */
+  margin-top: -80px;/*向上移*/
 }
 /* Clean Up 单独设置 */
 .subtitle {
@@ -64,7 +65,8 @@ body {
   color: white;
   text-shadow: 2px 2px 8px rgba(0, 0, 255, 0.4),
                -2px -2px 8px rgba(255, 255, 255, 0.4);
-  margin-bottom: 30px; /* 增加 Clean Up 和按钮之间的距离 */
+  margin-bottom: 100px; /* 增加 Clean Up 和按钮之间的距离 */
+  
 }
 /* 按钮 */
 .button {
@@ -80,6 +82,7 @@ body {
   transition: all 0.3s ease;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  margin-top: 150px;
 }
 
 .button:hover {
