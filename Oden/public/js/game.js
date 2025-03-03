@@ -2,7 +2,13 @@
  const TILE_SIZE = 40;
  const TILE_WIDTH = TILE_SIZE;
  const TILE_HEIGHT = TILE_SIZE;
+
+ const TILE_NBROW = 20;
+ const TILE_NBCOL = 20;
+
+
  const size_sand = 2;
+ let imagesLoaded = 0;
 
  // 初始化游戏状态
  let gameState = {
@@ -14,7 +20,10 @@
    },
    //base: { x: 5, y: 5 }, // 基地坐标
    map: new Map(), // 地图数据
-   shipImage: null, // 船只图片
+   shipImage: new Image(), // 船只图片
+   sandImage: new Image(),
+   seaImage: new Image(),
+   oilImage: new Image(),
    time: 0 // 记录时间
  };
 
@@ -52,7 +61,7 @@ function generateMap(cols, rows) {
       //const isBase = x === gameState.base.x && y === gameState.base.y; // 判断是否为基地
 
       // 创建瓦片数据
-      if ((x <= size_sand && y <= size_sand - 1) || (x <= size_sand - 1 && y <= size_sand) || (x === cols - 1) || (y == rows - 1)) {
+      if ((x <= size_sand && y <= size_sand - 1) || (x <= size_sand - 1 && y <= size_sand)) {
         map.set(`${x},${y}`, {
           x, y,
           type: 'sand',
@@ -80,17 +89,17 @@ function gameLoop() {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height); // 清空 canvas
 
-    let nbrows = Math.floor(window.innerWidth / TILE_WIDTH);
-    let nbcols = Math.floor(window.innerHeight / TILE_HEIGHT);
+    let nbrows = Math.floor(window.innerWidth / TILE_WIDTH) + 1;
+    let nbcols = Math.floor(window.innerHeight / TILE_HEIGHT) + 1;
 
-    const minX = Math.max(0, gameState.ship.x - (nbrows / 2));
+    const minX = Math.max(0, gameState.ship.x);
     const maxX = minX + nbrows;
 
-    const minY = Math.max(0, gameState.ship.y - (nbcols / 2));
+    const minY = Math.max(0, gameState.ship.y);
     const maxY = minY + nbcols;
 
-    let first = true;
-    let ref;
+    console.log("maxY : ", maxY);
+    console.log("nbcols : ", nbcols);
 
     // 绘制地图
     gameState.map.forEach(tile => {
@@ -98,34 +107,30 @@ function gameLoop() {
         tile.x >= minX && tile.x < maxX &&
         tile.y >= minY && tile.y < maxY  
        ) {
-        if (first) {
-          first = false;
-          ref = tile;
-        }
 
-        let color = new Image(); // 漏油颜色，海洋颜色
+        let color; 
 
         switch (tile.type) {
           case ("oil"):
-            color.src = 'assets/oil.png';
+            color = gameState.oilImage;
             break;
           case ("sand"):
-            color.src = "assets/shore.png";
+            color = gameState.sandImage;
             break;
           default:
-            color.src = 'assets/sea.png';
+            color = gameState.seaImage;
         }
 
         // 计算瓦片在 canvas 上的坐标
-        const tileX = (tile.x - ref.x) * TILE_WIDTH;
-        const tileY = (tile.y - ref.y) * TILE_HEIGHT;
+        const tileX = (tile.x - gameState.ship.x) * TILE_WIDTH;
+        const tileY = (tile.y - gameState.ship.y) * TILE_HEIGHT;
 
-        ctx.drawImage(color, tileX, tileY, 40, 40);
+        ctx.drawImage(color, tileX, tileY, TILE_WIDTH, TILE_HEIGHT);
       }
     });
 
-    const shipX = (ref.x + size_sand) * TILE_WIDTH;
-    const shipY = (ref.y + size_sand) * TILE_HEIGHT;
+    const shipX = (size_sand) * TILE_WIDTH;
+    const shipY = (size_sand) * TILE_HEIGHT;
   
     if (gameState.shipImage) {
       ctx.drawImage(gameState.shipImage, shipX, shipY, TILE_WIDTH, TILE_HEIGHT);
@@ -138,31 +143,36 @@ function initGame() {
     // 获取 canvas 元素和 2D 渲染上下文
   const canvas = document.getElementById('gameCanvas');
 
-  const width = 20;
-  const height = 20;
 
   canvas.width = window.innerWidth; // 设置 canvas 宽度
   canvas.height = window.innerHeight; // 设置 canvas 高度
 
-  gameState.map = generateMap(width, height); // 生成地图
+  gameState.map = generateMap(TILE_NBROW, TILE_NBCOL); // 生成地图
 
-  gameState.ship.x = size_sand;
-  gameState.ship.y = size_sand;
+  gameState.ship.x = 0;
+  gameState.ship.y = 0;
 
   // 加载船只图片
-  const shipImage = new Image();
-  shipImage.src = 'assets/ship.png'; // 设置图片路径
-  shipImage.onload = () => {
-    gameState.shipImage = shipImage; // 图片加载完成后，保存到 gameState 中
-    requestAnimationFrame(gameLoop);
-  };
+  gameState.shipImage.src = 'assets/ship.png';
+  gameState.oilImage.src = 'assets/oil.png';
+  gameState.seaImage.src = 'assets/sea.png';
+  gameState.sandImage.src = 'assets/shore.png';
 
-
-
+  gameState.shipImage.onload = imageLoaded;
+  gameState.oilImage.onload = imageLoaded;
+  gameState.seaImage.onload = imageLoaded;
+  gameState.sandImage.onload = imageLoaded;
 
   document.addEventListener("touchstart", touchHandler, {passive: false});
   document.addEventListener("touchmove", touchHandler, {passive: false});
 
+}
+
+function imageLoaded() {
+  imagesLoaded++;
+  if (imagesLoaded === 4) {
+      gameLoop();
+  }
 }
 
 

@@ -6,6 +6,8 @@ html, body {
 
 canvas {
   display: block;
+  background-image: url('../assets/deep_sea.png');
+  background-size: 40px;
 }
 
 /* #hud {
