@@ -3,7 +3,12 @@ function Menu() {
     let body = document.querySelector("body");
     body.innerHTML = "";
 
-    
+    // 只在第一页设置背景
+    body.style.backgroundImage = "url('assets/First page.png')";
+    body.style.backgroundSize = "cover";
+    body.style.backgroundPosition = "center";
+    body.style.backgroundRepeat = "no-repeat";
+
     let div = document.createElement("div");
     div.classList.add("menu");
     
