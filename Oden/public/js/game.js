@@ -2,7 +2,7 @@
  const TILE_SIZE = 40;
  const TILE_WIDTH = TILE_SIZE;
  const TILE_HEIGHT = TILE_SIZE;
- const size_sand = 3;
+ const size_sand = 2;
 
  // 初始化游戏状态
  let gameState = {
@@ -52,18 +52,11 @@ function generateMap(cols, rows) {
       //const isBase = x === gameState.base.x && y === gameState.base.y; // 判断是否为基地
 
       // 创建瓦片数据
-      if ((x >= cols - size_sand && y >= rows - size_sand - 1) || (x >= cols - size_sand - 1 && y >= rows - size_sand)) {
+      if ((x <= size_sand && y <= size_sand - 1) || (x <= size_sand - 1 && y <= size_sand) || (x === cols - 1) || (y == rows - 1)) {
         map.set(`${x},${y}`, {
           x, y,
           type: 'sand',
           oilAmount: 0
-        });
-      } else if (x === 0 && y === 0) {
-        map.set(`${x},${y}`, {
-          x, y,
-          // type: isBase ? 'base' : isOil ? 'oil' : 'sea', // 设置瓦片类型
-          type: 'sand', // 设置瓦片类型
-          oilAmount: 0 // 设置漏油量
         });
       } else {
         map.set(`${x},${y}`, {
@@ -87,15 +80,29 @@ function gameLoop() {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height); // 清空 canvas
 
-    let nbrows = Math.floor(window.innerWidth / TILE_WIDTH) / 2;
-    let nbcols = Math.floor(window.innerHeight / TILE_HEIGHT) / 2;
-    let cpt = 0;
+    let nbrows = Math.floor(window.innerWidth / TILE_WIDTH);
+    let nbcols = Math.floor(window.innerHeight / TILE_HEIGHT);
+
+    const minX = Math.max(0, gameState.ship.x - (nbrows / 2));
+    const maxX = minX + nbrows;
+
+    const minY = Math.max(0, gameState.ship.y - (nbcols / 2));
+    const maxY = minY + nbcols;
+
+    let first = true;
+    let ref;
+
     // 绘制地图
     gameState.map.forEach(tile => {
-      
-      if (tile.x > gameState.ship.x - nbrows && tile.x < gameState.ship.x + nbrows
-        && tile.y > gameState.ship.y - nbcols && tile.y < gameState.ship.y + nbrows
+      if (    
+        tile.x >= minX && tile.x < maxX &&
+        tile.y >= minY && tile.y < maxY  
        ) {
+        if (first) {
+          first = false;
+          ref = tile;
+        }
+
         let color = new Image(); // 漏油颜色，海洋颜色
 
         switch (tile.type) {
@@ -110,25 +117,19 @@ function gameLoop() {
         }
 
         // 计算瓦片在 canvas 上的坐标
-        const tileX = tile.x * TILE_WIDTH;
-        const tileY = tile.y * TILE_HEIGHT;
+        const tileX = (tile.x - ref.x) * TILE_WIDTH;
+        const tileY = (tile.y - ref.y) * TILE_HEIGHT;
 
-        ctx.drawImage(color, tileX - (tileX - (cpt * TILE_WIDTH)), tileY - (tileY - (cpt * TILE_HEIGHT)), 40, 40);
-        cpt++;
+        ctx.drawImage(color, tileX, tileY, 40, 40);
       }
     });
 
-    // 计算船只在 canvas 上的坐标
-    const shipX = gameState.ship.x * TILE_WIDTH;
-    const shipY = gameState.ship.y * TILE_HEIGHT;
-
-    // 如果船只图片已加载，则绘制图片
+    const shipX = (ref.x + size_sand) * TILE_WIDTH;
+    const shipY = (ref.y + size_sand) * TILE_HEIGHT;
+  
     if (gameState.shipImage) {
       ctx.drawImage(gameState.shipImage, shipX, shipY, TILE_WIDTH, TILE_HEIGHT);
     }
-
-
-    requestAnimationFrame(gameLoop); // 请求下一次动画帧
   }
 }
 
@@ -145,16 +146,19 @@ function initGame() {
 
   gameState.map = generateMap(width, height); // 生成地图
 
-  gameState.ship.x = width - size_sand - 1;
-  gameState.ship.y = height - size_sand - 1;
+  gameState.ship.x = size_sand;
+  gameState.ship.y = size_sand;
 
   // 加载船只图片
   const shipImage = new Image();
   shipImage.src = 'assets/ship.png'; // 设置图片路径
   shipImage.onload = () => {
     gameState.shipImage = shipImage; // 图片加载完成后，保存到 gameState 中
-    gameLoop(); // 启动游戏循环
+    requestAnimationFrame(gameLoop);
   };
+
+
+
 
   document.addEventListener("touchstart", touchHandler, {passive: false});
   document.addEventListener("touchmove", touchHandler, {passive: false});
@@ -179,27 +183,19 @@ function touchHandler(e) {
       // Check if the new position is within bounds
       if (tileX >= 0 && tileX < 20 && tileY >= 0 && tileY < 20) {
         if (tileX < gameState.ship.x) {
-          gameState.ship.x -= 0.1;
+          gameState.ship.x -= 1;
         } else if (tileX > gameState.ship.x) {
-          gameState.ship.x += 0.1;
+          gameState.ship.x += 1;
         }
 
         if (tileY < gameState.ship.y) {
-          gameState.ship.y -= 0.1;
+          gameState.ship.y -= 1;
         } else if (tileY > gameState.ship.y) {
-          gameState.ship.y += 0.1;
+          gameState.ship.y += 1;
         }
       }
 
-      // 计算船只在 canvas 上的坐标
-      const shipX = gameState.ship.x * TILE_WIDTH;
-      const shipY = gameState.ship.y * TILE_HEIGHT;
-      const ctx = canvas.getContext('2d');
-
-      // 如果船只图片已加载，则绘制图片
-      if (gameState.shipImage) {
-        ctx.drawImage(gameState.shipImage, shipX - 20, shipY - 20, 40, 40);
-      }
+      requestAnimationFrame(gameLoop);
 
       e.preventDefault();  // Prevent scrolling on touch devices
   }
