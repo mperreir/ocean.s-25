@@ -13,10 +13,14 @@ const size_sand_y = 2;
 let imagesLoaded = 0;
 
 let gameState = {
-  ship: {
+  camera: {
     x: 0,
     y: 0,
     orientation: 0
+  },
+  ship: {
+    x: 0,
+    y: 0,
   },
   map: new Map(),
   shipImage: new Image(),
@@ -27,13 +31,13 @@ let gameState = {
   baseRightImage: new Image(),
   time: 0,
   oilcenter: {
-  x: 0,
-  y: 0
+    x: 0,
+    y: 0
   },
 };
 
-gameState.ship.x = 0;
-gameState.ship.y = 0;
+gameState.camera.x = 0;
+gameState.camera.y = 0;
 
 
 function generateMap(cols, rows) {
@@ -96,10 +100,10 @@ function gameLoop() {
     let nbrows = Math.floor(window.innerWidth / TILE_WIDTH) + 2;
     let nbcols = Math.floor(window.innerHeight / TILE_HEIGHT) + 2;
 
-    const minX = Math.max(0, Math.floor(gameState.ship.x));
+    const minX = Math.max(0, Math.floor(gameState.camera.x));
     const maxX = minX + nbrows;
 
-    const minY = Math.max(0, Math.floor(gameState.ship.y));
+    const minY = Math.max(0, Math.floor(gameState.camera.y));
     const maxY = minY + nbcols;
 
     gameState.map.forEach(tile => {
@@ -128,25 +132,25 @@ function gameLoop() {
             break;
         }
 
-        const tileX = (tile.x - gameState.ship.x) * TILE_WIDTH;
-        const tileY = (tile.y - gameState.ship.y) * TILE_HEIGHT;
+        const tileX = (tile.x - gameState.camera.x) * TILE_WIDTH;
+        const tileY = (tile.y - gameState.camera.y) * TILE_HEIGHT;
 
         ctx.drawImage(color, tileX, tileY, TILE_WIDTH, TILE_HEIGHT);
       }
     });
 
-    const shipX = (nbrows / 2) * TILE_WIDTH;
-    const shipY = (nbcols / 2 - 1) * TILE_HEIGHT;
+    gameState.ship.x = (nbrows / 2) * TILE_WIDTH;
+    gameState.ship.y = (nbcols / 2 - 1) * TILE_HEIGHT; 
   
     if (gameState.shipImage) {
 
       ctx.save();
 
       // move to the center of the canvas
-      ctx.translate(shipX + TILE_WIDTH / 2, shipY + TILE_HEIGHT/2);
+      ctx.translate(gameState.ship.x + TILE_WIDTH / 2, gameState.ship.y + TILE_HEIGHT/2);
     
       // rotate the canvas to the specified degrees
-      ctx.rotate(gameState.ship.orientation*Math.PI/180);
+      ctx.rotate(gameState.camera.orientation*Math.PI/180);
 
       ctx.drawImage(gameState.shipImage, -TILE_WIDTH / 2, -TILE_HEIGHT / 2, TILE_WIDTH, TILE_HEIGHT);
 
@@ -155,16 +159,16 @@ function gameLoop() {
 
     ctx.beginPath();
     canvas_arrow(ctx, 
-      shipX + TILE_WIDTH / 2, 
-      shipY + TILE_HEIGHT / 2, 
-      ((gameState.oilcenter.x - gameState.ship.x) * TILE_WIDTH), 
-      ((gameState.oilcenter.y - gameState.ship.y) * TILE_HEIGHT), 
+      gameState.ship.x + TILE_WIDTH / 2, 
+      gameState.ship.y + TILE_HEIGHT / 2, 
+      ((gameState.oilcenter.x - gameState.camera.x) * TILE_WIDTH), 
+      ((gameState.oilcenter.y - gameState.camera.y) * TILE_HEIGHT), 
       TILE_SIZE);
     ctx.stroke();
   }
 }
 
-// 初始化游戏
+
 function initGame() {
   const canvas = document.getElementById('gameCanvas');
 
@@ -176,8 +180,8 @@ function initGame() {
   let nbrows = Math.floor(Math.floor(window.innerWidth / TILE_WIDTH) / 2);
   let nbcols = Math.floor(Math.floor(window.innerHeight / TILE_HEIGHT) / 2);
 
-  gameState.ship.x = (TILE_NBROW / 2 - 1) - nbrows;
-  gameState.ship.y = (TILE_NBCOL / 2 - 1) - nbcols;
+  gameState.camera.x = (TILE_NBROW / 2 - 1) - nbrows;
+  gameState.camera.y = (TILE_NBCOL / 2 - 1) - nbcols;
 
   gameState.shipImage.src = 'assets/ship.png';
   gameState.oilImage.src = 'assets/oil.png';
@@ -223,30 +227,48 @@ function getRandomInt(min, max) {
 
 function touchHandler(e) {
   if (e.touches) {
-
-      // Check if the new position is within bounds
-      if (joystick.left) {
-        gameState.ship.x -= 0.2;
-        gameState.ship.orientation = 270;
-      } else if (joystick.right) {
-        gameState.ship.x += 0.2;
-        gameState.ship.orientation = 90;
+    
+    // Check if the new position is within bounds
+    if (joystick.left) {
+      if (ceilType(Math.round(((gameState.camera.x + gameState.ship.x / TILE_WIDTH) - 0.2)), Math.round((gameState.camera.y + gameState.ship.y / TILE_HEIGHT))) === 'sea') {
+        gameState.camera.x -= 0.2;
+        gameState.camera.orientation = 270;
       }
-
-      if (joystick.up) {
-        gameState.ship.y -= 0.2;
-        gameState.ship.orientation = 0;
-      } else if (joystick.down) {
-        gameState.ship.y += 0.2;
-        gameState.ship.orientation = 180;
+    } else if (joystick.right) {
+      if (ceilType(Math.round(((gameState.camera.x + gameState.ship.x / TILE_WIDTH) + 0.2)), Math.round((gameState.camera.y + gameState.ship.y / TILE_HEIGHT))) === 'sea') {
+        gameState.camera.x += 0.2;
+        gameState.camera.orientation = 90;
       }
+    }
+
+    if (joystick.up) {
+      if (ceilType(Math.round(((gameState.camera.x + gameState.ship.x / TILE_WIDTH))), Math.round((gameState.camera.y + gameState.ship.y / TILE_HEIGHT) - 0.2)) === 'sea') {
+        gameState.camera.y -= 0.2;
+        gameState.camera.orientation = 0;
+      }
+    } else if (joystick.down) {
+      if (ceilType(Math.round(((gameState.camera.x + gameState.ship.x / TILE_WIDTH))), Math.round((gameState.camera.y + gameState.ship.y / TILE_HEIGHT) + 0.2)) === 'sea') {
+        gameState.camera.y += 0.2;
+        gameState.camera.orientation = 180;
+      }
+    }
     
 
-      requestAnimationFrame(gameLoop);
+    requestAnimationFrame(gameLoop);
 
-      e.preventDefault();  // Prevent scrolling on touch devices
+    e.preventDefault();  // Prevent scrolling on touch devices
   }
 }
 
+function ceilType(x, y) {
+
+  for (let [_, tile] of gameState.map) {
+    if (tile.x === x && tile.y === y) {
+      return tile.type;
+    }
+  }
+
+  return null;
+}
 
 
