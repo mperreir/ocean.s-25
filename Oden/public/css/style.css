@@ -27,7 +27,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   margin: 0;
   background: linear-gradient(to bottom, #87CEFA, #1E90FF); /* 渐变海洋背景 */
 }
