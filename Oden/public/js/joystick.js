@@ -6,6 +6,7 @@ var JOYSTICK_DIV = null;
 function __init_joystick_div()
 {
 	JOYSTICK_DIV = document.createElement('div');
+	JOYSTICK_DIV.id = "divPad";
 	var div_style = JOYSTICK_DIV.style;
 	div_style.background = 'rgba(255,255,255,0)';
 	div_style.position = 'absolute';
