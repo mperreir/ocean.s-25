@@ -28,7 +28,8 @@ function Menu() {
     let menu = document.createElement("button");
     menu.classList.add("button");
     menu.textContent = "Start Mission";
-    menu.onclick = FireScenario; // 点击按钮时执行 FireScenario
+    menu.onclick = Guide_Page; // 点击按钮时执行 FireScenario
+    //menu.onclick = FireScenario; // 点击按钮时执行 FireScenario
 
     div.appendChild(title);
     div.appendChild(subtitle);

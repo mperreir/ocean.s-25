@@ -8,7 +8,7 @@ Movie myMovie;  // Video object
  
 void setup() {  
   fullScreen();  // Set full-screen mode  
-  myMovie = new Movie(this, "10s.mp4"); // Load video (MP4 file must be placed in the `data` directory)
+  myMovie = new Movie(this, "25s.mp4"); // Load video (MP4 file must be placed in the `data` directory)
   String portName = "COM16";  // Connect to Arduino's serial port (e.g., "COM3" or "/dev/ttyUSB0")
   myPort = new Serial(this, portName, 9600);
 }
