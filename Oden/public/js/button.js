@@ -4,6 +4,7 @@
 function buttonFire(x, y, inner_radius) {
 
     this.control = document.createElement('span');
+    this.control.className = "hidden";
     this.control.id = "buttonFire";
     div_style = this.control.style;
     div_style.width = inner_radius * 2 + 'px';
