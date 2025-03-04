@@ -26,7 +26,12 @@ let gameState = {
   shipImage: new Image(),
   sandImage: new Image(),
   seaImage: new Image(),
-  oilImage: new Image(),
+  deepseaImage: new Image(),
+  oilImageFull: new Image(),
+  oilImageFirst: new Image(),
+  oilImageSecond: new Image(),
+  oilImageThird: new Image(),
+  oilImageFourth: new Image(),
   baseLeftImage: new Image(),
   baseRightImage: new Image(),
   time: 0,
@@ -34,6 +39,9 @@ let gameState = {
     x: 0,
     y: 0
   },
+  time: 45,
+  started: false,
+  nbpropagation: 1,
 };
 
 gameState.camera.x = 0;
@@ -51,7 +59,9 @@ function generateMap(cols, rows) {
 
   for (let x = 0; x < cols; x++) {
     for (let y = 0; y < rows; y++) {
-      
+
+
+
       if ((x === Math.floor(rows / 2) && (y === Math.floor(cols / 2) || y === Math.floor(cols / 2) + 1 || y === Math.floor(cols / 2) + 2))|| ((x === Math.floor(rows / 2) + 1 || x === Math.floor(rows / 2) - 1) && y === Math.floor(cols / 2) + 1)) {
         map.set(`${x},${y}`, {
           x, y,
@@ -62,7 +72,7 @@ function generateMap(cols, rows) {
         map.set(`${x},${y}`, {
           x, y,
           type: 'oil', 
-          oilAmount: Math.floor(Math.random() * 3) + 1
+          oilAmount: 0.2
         });
       } else if (x === oilX && y === oilY + 1) {
         map.set(`${x},${y}`, {
@@ -74,6 +84,12 @@ function generateMap(cols, rows) {
         map.set(`${x},${y}`, {
           x, y,
           type: 'baseRight', 
+          oilAmount: 0
+        });
+      } else if (x === 0 || y === 0 || x === cols - 1 || y === rows - 1) {
+        map.set(`${x},${y}`, {
+          x, y,
+          type: 'deepsea',
           oilAmount: 0
         });
       } else {
@@ -116,7 +132,7 @@ function gameLoop() {
 
         switch (tile.type) {
           case ("oil"):
-            color = gameState.oilImage;
+            color = gameState.oilImageFull;
             break;
           case ("sand"):
             color = gameState.sandImage;
@@ -127,6 +143,9 @@ function gameLoop() {
           case ("baseRight"):
             color = gameState.baseRightImage;
             break;
+          case ("deepsea"):
+            color = gameState.deepseaImage;
+            break;
           default:
             color = gameState.seaImage;
             break;
@@ -135,7 +154,30 @@ function gameLoop() {
         const tileX = (tile.x - gameState.camera.x) * TILE_WIDTH;
         const tileY = (tile.y - gameState.camera.y) * TILE_HEIGHT;
 
+        if (color === gameState.oilImageFull) {
+
+          switch (true) {
+            case tile.oilAmount <= 0.2:
+              color = gameState.oilImageFirst;
+              break;
+            case tile.oilAmount <= 0.4:
+              color = gameState.oilImageSecond;
+              break;
+            case tile.oilAmount <= 0.6:
+              color = gameState.oilImageThird;
+              break;
+            case tile.oilAmount <= 0.8:
+              color = gameState.oilImageFourth;
+              break;
+            case tile.oilAmount <= 1:
+              color = gameState.oilImageFull;
+              break;
+          }
+
+        }
+
         ctx.drawImage(color, tileX, tileY, TILE_WIDTH, TILE_HEIGHT);
+
       }
     });
 
@@ -184,14 +226,25 @@ function initGame() {
   gameState.camera.y = (TILE_NBCOL / 2 - 1) - nbcols;
 
   gameState.shipImage.src = 'assets/ship.png';
-  gameState.oilImage.src = 'assets/oil.png';
+  gameState.oilImageFull.src = 'assets/oil.png';
+  gameState.oilImageFirst.src = 'assets/oil_spread1.png';
+  gameState.oilImageSecond.src = 'assets/oil_spread2.png';
+  gameState.oilImageThird.src = 'assets/oil_spread3.png';
+  gameState.oilImageFourth.src = 'assets/oil_spread4.png';
+
   gameState.seaImage.src = 'assets/sea.png';
+  gameState.deepseaImage.src = 'assets/sea2.png';
   gameState.sandImage.src = 'assets/shore.png';
   gameState.baseLeftImage.src = 'assets/station_left.png';
   gameState.baseRightImage.src = 'assets/station_right.png';
 
   gameState.shipImage.onload = imageLoaded;
-  gameState.oilImage.onload = imageLoaded;
+  gameState.oilImageFull.onload = imageLoaded;
+  gameState.oilImageFirst.onload = imageLoaded;
+  gameState.oilImageSecond.onload = imageLoaded;
+  gameState.oilImageThird.onload = imageLoaded;
+  gameState.oilImageFourth.onload = imageLoaded;
+  gameState.deepseaImage.onload = imageLoaded;
   gameState.seaImage.onload = imageLoaded;
   gameState.sandImage.onload = imageLoaded;
   gameState.baseLeftImage.onload = imageLoaded;
@@ -207,14 +260,31 @@ function initGame() {
 
   const pad = document.getElementById("pad");
 
-  pad.addEventListener("touchstart", touchHandler, {passive: false});
-  pad.addEventListener("touchmove", touchHandler, {passive: false});
+  pad.addEventListener("touchstart", (e) => {
+    touchHandler(e);
+    if (!gameState.started) {
+      gameState.started = true;
+      const timer = setInterval(() => {
+        if (gameState.time > 0) {
+          const time = document.getElementById("time");
+          gameState.time--;
+          gameState.time < 10 ? time.innerText = "0"+gameState.time : time.innerText = gameState.time;
 
+          propagationOil();
+          
+          if (gameState.time % 5 == 0) {
+            gameState.nbpropagation++;
+          }
+        }
+      }, 1000);
+    }
+  }, {passive: false});
+  pad.addEventListener("touchmove", touchHandler, {passive: false});
 }
 
 function imageLoaded() {
   imagesLoaded++;
-  if (imagesLoaded === 6) {
+  if (imagesLoaded === 11) {
       gameLoop();
   }
 }
@@ -227,30 +297,45 @@ function getRandomInt(min, max) {
 
 function touchHandler(e) {
   if (e.touches) {
-    
+    let speed = 0.1;
+
+    if (['deepsea', 'oil'].includes(ceilType((gameState.camera.x + gameState.ship.x / TILE_WIDTH), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT)))) {
+      speed = 0.01;
+    }
+
     // Check if the new position is within bounds
     if (joystick.left) {
-      if (ceilType(Math.round(((gameState.camera.x + gameState.ship.x / TILE_WIDTH) - 0.2)), Math.round((gameState.camera.y + gameState.ship.y / TILE_HEIGHT))) === 'sea') {
-        gameState.camera.x -= 0.2;
+      if (['sea', 'deepsea', 'oil'].includes(ceilType(((gameState.camera.x + gameState.ship.x / TILE_WIDTH) - 0.2), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT)))) {
+        gameState.camera.x -= speed;
         gameState.camera.orientation = 270;
       }
     } else if (joystick.right) {
-      if (ceilType(Math.round(((gameState.camera.x + gameState.ship.x / TILE_WIDTH) + 0.2)), Math.round((gameState.camera.y + gameState.ship.y / TILE_HEIGHT))) === 'sea') {
-        gameState.camera.x += 0.2;
+      if (['sea', 'deepsea', 'oil'].includes(ceilType(((gameState.camera.x + gameState.ship.x / TILE_WIDTH) + 0.2), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT)))) {
+        gameState.camera.x += speed;
         gameState.camera.orientation = 90;
       }
     }
 
     if (joystick.up) {
-      if (ceilType(Math.round(((gameState.camera.x + gameState.ship.x / TILE_WIDTH))), Math.round((gameState.camera.y + gameState.ship.y / TILE_HEIGHT) - 0.2)) === 'sea') {
-        gameState.camera.y -= 0.2;
+      if (['sea', 'deepsea', 'oil'].includes(ceilType(((gameState.camera.x + gameState.ship.x / TILE_WIDTH)), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT) - 0.2))) {
+        gameState.camera.y -= speed;
         gameState.camera.orientation = 0;
       }
     } else if (joystick.down) {
-      if (ceilType(Math.round(((gameState.camera.x + gameState.ship.x / TILE_WIDTH))), Math.round((gameState.camera.y + gameState.ship.y / TILE_HEIGHT) + 0.2)) === 'sea') {
-        gameState.camera.y += 0.2;
+      if (['sea', 'deepsea', 'oil'].includes(ceilType(((gameState.camera.x + gameState.ship.x / TILE_WIDTH)), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT) + 0.2))) {
+        gameState.camera.y += speed;
         gameState.camera.orientation = 180;
       }
+    }
+
+    if (joystick.left && joystick.up) {
+      gameState.camera.orientation = 315;
+    } else if (joystick.right && joystick.up) {
+      gameState.camera.orientation = 45;
+    } else if (joystick.left && joystick.down) {
+      gameState.camera.orientation = 225;
+    } else if (joystick.right && joystick.down) {
+      gameState.camera.orientation = 135;
     }
     
 
@@ -263,7 +348,7 @@ function touchHandler(e) {
 function ceilType(x, y) {
 
   for (let [_, tile] of gameState.map) {
-    if (tile.x === x && tile.y === y) {
+    if (tile.x === Math.round(x) && tile.y === Math.round(y)) {
       return tile.type;
     }
   }
@@ -271,4 +356,22 @@ function ceilType(x, y) {
   return null;
 }
 
+function propagationOil() {
+  const { x: centerX, y: centerY } = gameState.oilcenter;
+  const dist = gameState.nbpropagation;
 
+  for (let [_, tile] of gameState.map) {
+    if ((Math.abs(tile.x - centerX) === dist && Math.abs(tile.y - centerY) <= dist) ||
+    (Math.abs(tile.y - centerY) === dist && Math.abs(tile.x - centerX) <= dist) ||
+    (tile.x === centerX && tile.y === centerY)) {
+      if (tile.type === 'sea') {
+        tile.type = 'oil';
+        tile.oilAmount = 0.2;
+      } else if (tile.type === 'oil') {
+        tile.oilAmount += 0.2;
+      }
+    }
+  }
+  
+  requestAnimationFrame(gameLoop);
+}

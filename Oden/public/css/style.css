@@ -8,11 +8,11 @@ html, body {
 
 canvas {
   display: block;
-  background-image: url('../assets/deep_sea.png');
+  background-image: url('../assets/sea3.png');
   background-size: 40px;
 }
 
-/* #hud {
+#hud {
   position: fixed;
   top: 20px;
   left: 20px;
@@ -21,7 +21,7 @@ canvas {
   padding: 15px;
   border-radius: 5px;
   font-size: 16px;
-} */
+}
 
 body {
   display: flex;
