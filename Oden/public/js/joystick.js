@@ -19,7 +19,6 @@ function __init_joystick_div()
 	div_style.borderWidth = '0px';
 	div_style.position = 'absolute';
 	div_style.overflow = 'hidden';
-	div_style.zIndex = '10000';
 	document.body.appendChild( JOYSTICK_DIV );
 }
 var JoyStick = function( attrs ) {

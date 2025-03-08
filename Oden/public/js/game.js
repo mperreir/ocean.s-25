@@ -40,10 +40,14 @@ let gameState = {
     x: 0,
     y: 0
   },
-  time: 45,
+  time: 50,
+  timer: null,
   started: false,
   nbpropagation: 1,
+  nbpropagationfire: 1,
+  nbpropagationsea: 1,
   fire: false,
+  paused: false,
 };
 
 gameState.camera.x = 0;
@@ -115,6 +119,53 @@ function gameLoop() {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    let speed = 0.04;
+
+    if (['deepsea', 'oil'].includes(ceilType((gameState.camera.x + gameState.ship.x / TILE_WIDTH), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT)))) {
+      speed = 0.01;
+    }
+
+    if (joystick.left) {
+      if (['sea', 'deepsea', 'oil'].includes(ceilType(((gameState.camera.x + gameState.ship.x / TILE_WIDTH) - 0.2), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT)))) {
+        gameState.camera.x -= speed;
+        gameState.camera.orientation = 270;
+      }
+    } else if (joystick.right) {
+      if (['sea', 'deepsea', 'oil'].includes(ceilType(((gameState.camera.x + gameState.ship.x / TILE_WIDTH) + 0.2), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT)))) {
+        gameState.camera.x += speed;
+        gameState.camera.orientation = 90;
+      }
+    }
+
+    if (joystick.up) {
+      if (['sea', 'deepsea', 'oil'].includes(ceilType(((gameState.camera.x + gameState.ship.x / TILE_WIDTH)), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT) - 0.2))) {
+        gameState.camera.y -= speed;
+        gameState.camera.orientation = 0;
+      }
+    } else if (joystick.down) {
+      if (['sea', 'deepsea', 'oil'].includes(ceilType(((gameState.camera.x + gameState.ship.x / TILE_WIDTH)), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT) + 0.2))) {
+        gameState.camera.y += speed;
+        gameState.camera.orientation = 180;
+      }
+    }
+    
+
+    if (joystick.left && joystick.up) {
+      gameState.camera.orientation = 315;
+    } else if (joystick.right && joystick.up) {
+      gameState.camera.orientation = 45;
+    } else if (joystick.left && joystick.down) {
+      gameState.camera.orientation = 225;
+    } else if (joystick.right && joystick.down) {
+      gameState.camera.orientation = 135;
+    }
+
+    if (checkBoatNearOil(3) && !gameState.fire) {
+      document.getElementById("buttonFire").classList.remove("hidden");
+    } else {
+      document.getElementById("buttonFire").classList.add("hidden");
+    }
+
     let nbrows = Math.floor(window.innerWidth / TILE_WIDTH) + 2;
     let nbcols = Math.floor(window.innerHeight / TILE_HEIGHT) + 2;
 
@@ -147,6 +198,9 @@ function gameLoop() {
             break;
           case ("deepsea"):
             color = gameState.deepseaImage;
+            break;
+          case ("oilFire"):
+            color = gameState.oilImageFire;
             break;
           default:
             color = gameState.seaImage;
@@ -183,8 +237,8 @@ function gameLoop() {
       }
     });
 
-    gameState.ship.x = (nbrows / 2) * TILE_WIDTH;
-    gameState.ship.y = (nbcols / 2 - 1) * TILE_HEIGHT; 
+    gameState.ship.x = window.innerWidth / 2 - TILE_WIDTH / 2;
+    gameState.ship.y = (window.innerHeight / 2 - TILE_HEIGHT / 2) - TILE_HEIGHT; 
   
     if (gameState.shipImage) {
 
@@ -201,15 +255,19 @@ function gameLoop() {
       ctx.restore();
     }
 
-    ctx.beginPath();
-    canvas_arrow(ctx, 
-      gameState.ship.x + TILE_WIDTH / 2, 
-      gameState.ship.y + TILE_HEIGHT / 2, 
-      ((gameState.oilcenter.x - gameState.camera.x) * TILE_WIDTH), 
-      ((gameState.oilcenter.y - gameState.camera.y) * TILE_HEIGHT), 
-      TILE_SIZE);
-    ctx.stroke();
+    if (!gameState.fire) {
+      ctx.beginPath();
+      canvas_arrow(ctx, 
+        gameState.ship.x + TILE_WIDTH / 2, 
+        gameState.ship.y + TILE_HEIGHT / 2, 
+        ((gameState.oilcenter.x - gameState.camera.x) * TILE_WIDTH), 
+        ((gameState.oilcenter.y - gameState.camera.y) * TILE_HEIGHT), 
+        TILE_SIZE);
+      ctx.stroke();
+    }
   }
+
+  requestAnimationFrame(gameLoop);
 }
 
 
@@ -267,47 +325,75 @@ function initGame() {
   const pad = document.getElementById("pad");
 
   pad.addEventListener("touchstart", (e) => {
-    touchHandler(e);
     if (!gameState.started) {
       gameState.started = true;
-      const timer = setInterval(() => {
-        if (gameState.time > 0 && !gameState.fire) {
-          const time = document.getElementById("time");
-          gameState.time--;
-          gameState.time < 10 ? time.innerText = "0"+gameState.time : time.innerText = gameState.time;
+      gameState.timer = setInterval(() => {
+        if (!gameState.paused) {
+          if (gameState.time > 0 && (!gameState.fire || gameState.nbpropagationfire >= 0)) {
+            const time = document.getElementById("time");
+            const realtime = document.getElementById("Realtime");
+            gameState.time--;
+            gameState.time < 10 ? time.innerText = "0"+gameState.time : time.innerText = gameState.time;
+            realtime.innerText = ((gameState.time / 50) * 209).toFixed(2);
+            
+            if (gameState.fire) {
+              propagationFireSea('oil', 'oilFire', gameState.nbpropagationfire);
 
-          propagationOil();
-          
-          if (gameState.time % 5 == 0) {
-            gameState.nbpropagation++;
+              if (gameState.nbpropagationfire === 0) gameState.nbpropagationfire--;
+            } else {
+              propagationOil();
+            }
+            
+            if (gameState.time % 5 == 0) {
+              if (gameState.fire) {
+                gameState.nbpropagationfire--;
+              } else {
+                gameState.nbpropagation++;
+              }
+            }
+          } else {
+            propagationFireSea('oilFire', 'sea', gameState.nbpropagationsea);
+            gameState.nbpropagationsea--;
+
+            if (gameState.nbpropagationsea === -1) {
+              clearInterval(gameState.timer);
+              document.getElementById("buttonFire").classList.add("hidden");
+              document.getElementById("divPad").classList.add("hidden");
+              document.getElementById("pause").classList.add("hidden");
+              // canvas.remove();
+            }
           }
         }
       }, 1000);
     }
   }, {passive: false});
-  pad.addEventListener("touchmove", touchHandler, {passive: false});
 
   document.getElementById("buttonFire").addEventListener("click", () => {
 
-    const { x: centerX, y: centerY } = gameState.oilcenter;
-    const dist = gameState.nbpropagation;
-    const shipX = (gameState.camera.x + gameState.ship.x / TILE_WIDTH);
-    const shipY = (gameState.camera.y + gameState.ship.y / TILE_HEIGHT);
-
-    if ((Math.abs(shipX - centerX) === dist && Math.abs(shipY - centerY) <= dist) ||
-      (Math.abs(shipY - centerY) === dist && Math.abs(shipX - centerX) <= dist))
+    if (checkBoatNearOil(3))
     {
-     console.log("hello"); 
+      gameState.fire = true;
+      gameState.nbpropagationfire = gameState.nbpropagation;
+      gameState.nbpropagationsea = gameState.nbpropagation;
+
+      propagationFireSea('oil', 'oilFire', gameState.nbpropagationfire);
+      document.getElementById("buttonFire").classList.add("hidden");
     }
 
-    gameState.fire = true;
-    gameState.oilImageFull = gameState.oilImageFire;
-    gameState.oilImageFirst = gameState.oilImageFire;
-    gameState.oilImageSecond = gameState.oilImageFire;
-    gameState.oilImageThird = gameState.oilImageFire;
-    gameState.oilImageFourth = gameState.oilImageFire;
+  });
 
-    requestAnimationFrame(gameLoop);
+  document.getElementById("pause").addEventListener("click", () => {
+    gameState.paused = !gameState.paused;
+
+    if (gameState.paused) {
+      document.getElementById("buttonFire").classList.add("hidden");
+      document.getElementById("divPad").classList.add("hidden");
+      document.getElementById("hudPause").classList.remove("hidden");
+    } else {
+      document.getElementById("buttonFire").classList.remove("hidden");
+      document.getElementById("divPad").classList.remove("hidden");
+      document.getElementById("hudPause").classList.add("hidden");
+    }
   });
 }
 
@@ -318,85 +404,19 @@ function imageLoaded() {
   }
 }
 
+function checkBoatNearOil(radius) {
+  const { x: centerX, y: centerY } = gameState.oilcenter;
+  const dist = gameState.nbpropagation;
+  const shipX = (gameState.camera.x + gameState.ship.x / TILE_WIDTH);
+  const shipY = (gameState.camera.y + gameState.ship.y / TILE_HEIGHT);
+
+  return (Math.abs(shipX - centerX) <= (dist + radius) && Math.abs(shipY - centerY) <= (dist + radius));
+}
+
 function getRandomInt(min, max) {
   const minCeiled = Math.ceil(min);
   const maxFloored = Math.floor(max);
   return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
-}
-
-function touchHandler(e) {
-  if (e.touches) {
-    let speed = 0.1;
-
-    if (['deepsea', 'oil'].includes(ceilType((gameState.camera.x + gameState.ship.x / TILE_WIDTH), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT)))) {
-      speed = 0.01;
-    }
-
-    if (gameState.fire) {
-      if (joystick.left) {
-        if (['sea', 'deepsea'].includes(ceilType(((gameState.camera.x + gameState.ship.x / TILE_WIDTH) - 0.2), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT)))) {
-          gameState.camera.x -= speed;
-          gameState.camera.orientation = 270;
-        }
-      } else if (joystick.right) {
-        if (['sea', 'deepsea'].includes(ceilType(((gameState.camera.x + gameState.ship.x / TILE_WIDTH) + 0.2), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT)))) {
-          gameState.camera.x += speed;
-          gameState.camera.orientation = 90;
-        }
-      }
-  
-      if (joystick.up) {
-        if (['sea', 'deepsea'].includes(ceilType(((gameState.camera.x + gameState.ship.x / TILE_WIDTH)), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT) - 0.2))) {
-          gameState.camera.y -= speed;
-          gameState.camera.orientation = 0;
-        }
-      } else if (joystick.down) {
-        if (['sea', 'deepsea'].includes(ceilType(((gameState.camera.x + gameState.ship.x / TILE_WIDTH)), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT) + 0.2))) {
-          gameState.camera.y += speed;
-          gameState.camera.orientation = 180;
-        }
-      }
-    } else {
-      if (joystick.left) {
-        if (['sea', 'deepsea', 'oil'].includes(ceilType(((gameState.camera.x + gameState.ship.x / TILE_WIDTH) - 0.2), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT)))) {
-          gameState.camera.x -= speed;
-          gameState.camera.orientation = 270;
-        }
-      } else if (joystick.right) {
-        if (['sea', 'deepsea', 'oil'].includes(ceilType(((gameState.camera.x + gameState.ship.x / TILE_WIDTH) + 0.2), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT)))) {
-          gameState.camera.x += speed;
-          gameState.camera.orientation = 90;
-        }
-      }
-
-      if (joystick.up) {
-        if (['sea', 'deepsea', 'oil'].includes(ceilType(((gameState.camera.x + gameState.ship.x / TILE_WIDTH)), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT) - 0.2))) {
-          gameState.camera.y -= speed;
-          gameState.camera.orientation = 0;
-        }
-      } else if (joystick.down) {
-        if (['sea', 'deepsea', 'oil'].includes(ceilType(((gameState.camera.x + gameState.ship.x / TILE_WIDTH)), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT) + 0.2))) {
-          gameState.camera.y += speed;
-          gameState.camera.orientation = 180;
-        }
-      }
-    }
-
-    if (joystick.left && joystick.up) {
-      gameState.camera.orientation = 315;
-    } else if (joystick.right && joystick.up) {
-      gameState.camera.orientation = 45;
-    } else if (joystick.left && joystick.down) {
-      gameState.camera.orientation = 225;
-    } else if (joystick.right && joystick.down) {
-      gameState.camera.orientation = 135;
-    }
-    
-
-    requestAnimationFrame(gameLoop);
-
-    e.preventDefault();  // Prevent scrolling on touch devices
-  }
 }
 
 function ceilType(x, y) {
@@ -426,6 +446,16 @@ function propagationOil() {
       }
     }
   }
-  
-  requestAnimationFrame(gameLoop);
+}
+
+function propagationFireSea(checktype, type, dist) {
+  const { x: centerX, y: centerY } = gameState.oilcenter;
+
+  for (let [_, tile] of gameState.map) {
+    if ((Math.abs(tile.x - centerX) === dist || Math.abs(tile.y - centerY) === dist)) {
+      if (tile.type === checktype) {
+        tile.type = type;
+      };
+    }
+  }
 }
