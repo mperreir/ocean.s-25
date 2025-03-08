@@ -27,6 +27,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* background-color: #0B2B2D; */
   /* height: 100vh; */
   margin: 0;
   /* background: linear-gradient(to bottom, #87CEFA, #1E90FF); 渐变海洋背景 */
@@ -129,10 +130,66 @@ body {
     right: 0;
   }
   /*//////////////////////////////////////////////////////////////////////*/
+  /* Guide 页面整体布局 */
+  .guide {
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    text-align: center;
+  }
 
+  /* ODEN Logo */
+  .oden-logo {
+    margin-bottom: 20px;
+  }
 
+  /* 通知容器 */
+  .notification-container {
+    position: relative;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  /* 图标样式 */
+  .icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    z-index: 2;
+    background-color: transparent;
+  }
+
+  /* 标题样式 */
+  .section-title {
+    background-color: #7ACDCC;
+    color: #000;
+    padding: 10px 10px 10px 50px;
+    font-weight: bold;
+    position: relative;
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+    width: 200px;
+    font-size: 14px;
+  }
+
+  /* 通知内容 */
+  .notification {
+    background-color: #7ACDCC;
+    padding: 15px;
+    margin-top: -1px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .notification p {
+    margin: 0;
+    text-align: left;
+  }
+
+  /* 按钮样式 */
   .guide .button {
-
     font-size: 1.3rem;
     font-weight: bold;
     padding: 12px 30px;
@@ -142,6 +199,7 @@ body {
     border-radius: 20px;
     transition: all 0.3s ease;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
   }
   
 
