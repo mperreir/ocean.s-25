@@ -5,7 +5,7 @@ function Guide_Page() {
 
     // 设置背景颜色，移除背景图像
     document.body.style.backgroundImage = "none";
-    document.body.style.background = "linear-gradient(to bottom, #154E52, #0B2B2D)";
+    document.body.style.background = "linear-gradient(to bottom, #0F3D40, #0B2B2D)";
 
     // 创建主容器 div
     let div = document.createElement("div");
@@ -26,20 +26,21 @@ function Guide_Page() {
     warningIcon.src = "assets/!.png";
 
     // 创建通知标题
-    let notificationTitle = document.createElement("div");
-    notificationTitle.classList.add("section-title");
-    notificationTitle.textContent = "NOTIFICATION";
+    let notificationTitle = document.createElement("div"); // 创建通知标题元素
+    notificationTitle.classList.add("section-title");// 添加 CSS 类以应用样式
+    notificationTitle.innerHTML = "<br>NOTIFICATION";// 设置标题文本内容
 
-    // 创建通知内容
+    // 创建通知内容的容器
     let notification = document.createElement("div");
-    notification.classList.add("notification");
+    notification.classList.add("notification"); // 添加 CSS 类以应用样式
 
+    // 创建通知文本元素
     let notifText = document.createElement("p");
-    notifText.textContent = "UNE FUITE A ÉTÉ DÉTECTÉE... LE TEMPS PRESSE. COMMENCEZ VOTRE MISSION !";
-    
-    // 将文本添加到通知内容中
+    notifText.innerHTML = "UNE FUITE A ÉTÉ DÉTECTÉE...<br>LE TEMPS PRESSE.<br>COMMENCEZ VOTRE MISSION !"; // 设置通知文本内容
+
+    // 将通知文本添加到内部容器
     notification.appendChild(notifText);
-    
+
     // 将各个部分添加到通知容器中
     notificationContainer.appendChild(warningIcon);
     notificationContainer.appendChild(notificationTitle);
@@ -57,7 +58,7 @@ function Guide_Page() {
     // 创建说明标题
     let instructionsTitle = document.createElement("div");
     instructionsTitle.classList.add("section-title");
-    instructionsTitle.textContent = "INTRUCTIONS";
+    instructionsTitle.innerHTML = "<br>INTRUCTIONS";
 
     // 创建说明内容
     let instructions = document.createElement("div");
@@ -68,7 +69,6 @@ function Guide_Page() {
     
     // 将文本添加到说明内容中
     instructions.appendChild(instrText);
-    
     // 将各个部分添加到说明容器中
     instructionsContainer.appendChild(infoIcon);
     instructionsContainer.appendChild(instructionsTitle);
