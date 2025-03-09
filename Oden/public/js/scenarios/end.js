@@ -1,4 +1,4 @@
-function Guide_Page() {
+function End_Page() {
     // 选择 <body> 元素并清空其内容
     let body = document.querySelector("body");
     body.innerHTML = "";
@@ -23,7 +23,7 @@ function Guide_Page() {
     // 创建警告图标
     let warningIcon = document.createElement("img");
     warningIcon.classList.add("icon", "warning-icon");
-    warningIcon.src = "assets/!.png";
+    warningIcon.src = "assets/right.png";
 
     // 创建通知标题
     let notificationTitle = document.createElement("div"); // 创建通知标题元素
@@ -36,7 +36,7 @@ function Guide_Page() {
 
     // 创建通知文本元素
     let notifText = document.createElement("p");
-    notifText.innerHTML = "UNE FUITE A ÉTÉ DÉTECTÉE...<br>LE TEMPS PRESSE.<br>COMMENCEZ VOTRE MISSION !"; // 设置通知文本内容
+    notifText.innerHTML = "ODEN, GRÂCE À L'UTILISATION DE ROBOTS AUTOMATIQUES, A EFFICACEMENT COLLECTÉ LA MARÉE NOIRE ET L'A TRANSPORTÉE VERS LE CENTRE DE TRAITEMENT."; // 设置通知文本内容
 
     // 将通知文本添加到内部容器
     notification.appendChild(notifText);
@@ -53,19 +53,19 @@ function Guide_Page() {
     // 创建信息图标
     let infoIcon = document.createElement("img");
     infoIcon.classList.add("icon", "info-icon");
-    infoIcon.src = "assets/i.png";
+    infoIcon.src = "assets/!.png";
 
     // 创建说明标题
     let instructionsTitle = document.createElement("div");
     instructionsTitle.classList.add("section-title");
-    instructionsTitle.innerHTML = "<br>INTRUCTIONS";
+    instructionsTitle.innerHTML = "<br>STATUS";
 
     // 创建说明内容
     let instructions = document.createElement("div");
     instructions.classList.add("notification");
 
     let instrText = document.createElement("p");
-    instrText.innerHTML = "BRÛLEZ LE PLUS POSSIBLE DE LA MARÉE NOIRE AVANT QU'ELLE NE SE PROPAGE DANS L'OCÉAN !<br><br>UTILISEZ VOTRE DOIGT POUR VOUS DÉPLACER SUR L'ÉCRAN.";
+    instrText.innerHTML = "CLIQUEZ SUR LE BOUTON DU MODULE POUR VOIR COMMENT LES HYDROCARBURES COLLECTÉS SONT TRAITÉS AVEC DES BACTÉRIES SPÉCIFIQUES.";
     
     // 将文本添加到说明内容中
     instructions.appendChild(instrText);
@@ -78,7 +78,7 @@ function Guide_Page() {
     let startButton = document.createElement("button");
     startButton.classList.add("button");
     startButton.textContent = "COMMENCER";
-    startButton.onclick = Instruction_Page;
+    startButton.onclick = FireScenario;
     //startButton.onclick = FireScenario; // 点击按钮后调用 FireScenario 进入游戏
 
     // 将所有元素添加到主容器中
@@ -93,5 +93,5 @@ function Guide_Page() {
 
 // 监听 DOM 加载完成后，初始化 Guide 页面
 document.addEventListener("DOMContentLoaded", (event) => {  
-    Guide_Page(); 
+    End_Page(); 
 });

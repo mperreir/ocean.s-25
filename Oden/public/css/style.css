@@ -49,7 +49,6 @@ canvas {
   font-size: 16px;
 }
 
-
 #pause {
   position: absolute;
   width: 20px;
@@ -71,7 +70,6 @@ body {
   /* background-color: #0B2B2D; */
   /* height: 100vh; */
   margin: 0;
-  /* background: linear-gradient(to bottom, #87CEFA, #1E90FF); 渐变海洋背景 */
 }
 
 /* 菜单容器 */
@@ -185,6 +183,11 @@ body {
     width: 172.55px; /* 设置图标宽度为 40 像素 */
     height: 64px; /* 设置图标高度为 40 像素 */
   }
+  .feak-logo {
+    margin-bottom: 20px;
+    width: 320px; /* 设置图标宽度为 40 像素 */
+    height: 81px; /* 设置图标高度为 40 像素 */
+  }
 
   /* 通知容器 */
   .notification-container {
@@ -223,7 +226,7 @@ body {
     padding: 25px; /* 使内容与边框保持间距 */
     margin-top: -1px;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.4;
     position: relative;
 }
@@ -257,10 +260,22 @@ body {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
     margin-top: 20px;
   }
-  
-
-
-
-
-
   /*//////////////////////////////////////////////////////////////////////*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*//////////////////////////////////////////////////////////////////////*/

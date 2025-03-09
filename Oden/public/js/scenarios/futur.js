@@ -1,4 +1,4 @@
-function Guide_Page() {
+function Futur_Page() {
     // 选择 <body> 元素并清空其内容
     let body = document.querySelector("body");
     body.innerHTML = "";
@@ -36,7 +36,7 @@ function Guide_Page() {
 
     // 创建通知文本元素
     let notifText = document.createElement("p");
-    notifText.innerHTML = "UNE FUITE A ÉTÉ DÉTECTÉE...<br>LE TEMPS PRESSE.<br>COMMENCEZ VOTRE MISSION !"; // 设置通知文本内容
+    notifText.innerHTML = "<br><br>DÉCOUVREZ LA SOLUTION LA PLUS EFFICACE POUR GÉRER UNE MARÉE NOIRE : ODEN, L'INNOVATION DU FUTUR.<br><br><br>"; // 设置通知文本内容
 
     // 将通知文本添加到内部容器
     notification.appendChild(notifText);
@@ -46,45 +46,16 @@ function Guide_Page() {
     notificationContainer.appendChild(notificationTitle);
     notificationContainer.appendChild(notification);
 
-    // 创建说明部分的容器
-    let instructionsContainer = document.createElement("div");
-    instructionsContainer.classList.add("notification-container");
-
-    // 创建信息图标
-    let infoIcon = document.createElement("img");
-    infoIcon.classList.add("icon", "info-icon");
-    infoIcon.src = "assets/i.png";
-
-    // 创建说明标题
-    let instructionsTitle = document.createElement("div");
-    instructionsTitle.classList.add("section-title");
-    instructionsTitle.innerHTML = "<br>INTRUCTIONS";
-
-    // 创建说明内容
-    let instructions = document.createElement("div");
-    instructions.classList.add("notification");
-
-    let instrText = document.createElement("p");
-    instrText.innerHTML = "BRÛLEZ LE PLUS POSSIBLE DE LA MARÉE NOIRE AVANT QU'ELLE NE SE PROPAGE DANS L'OCÉAN !<br><br>UTILISEZ VOTRE DOIGT POUR VOUS DÉPLACER SUR L'ÉCRAN.";
-    
-    // 将文本添加到说明内容中
-    instructions.appendChild(instrText);
-    // 将各个部分添加到说明容器中
-    instructionsContainer.appendChild(infoIcon);
-    instructionsContainer.appendChild(instructionsTitle);
-    instructionsContainer.appendChild(instructions);
-
     // 创建开始按钮
     let startButton = document.createElement("button");
     startButton.classList.add("button");
-    startButton.textContent = "COMMENCER";
-    startButton.onclick = Instruction_Page;
+    startButton.textContent = "CONTINUER";
+    startButton.onclick = End_Page;
     //startButton.onclick = FireScenario; // 点击按钮后调用 FireScenario 进入游戏
 
     // 将所有元素添加到主容器中
     div.appendChild(logo);
     div.appendChild(notificationContainer);
-    div.appendChild(instructionsContainer);
     div.appendChild(startButton);
     
     // 将主容器添加到 body
@@ -93,5 +64,5 @@ function Guide_Page() {
 
 // 监听 DOM 加载完成后，初始化 Guide 页面
 document.addEventListener("DOMContentLoaded", (event) => {  
-    Guide_Page(); 
+    Futur_Page(); 
 });

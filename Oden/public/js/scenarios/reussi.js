@@ -1,4 +1,4 @@
-function Guide_Page() {
+function Reussi_Page() {
     // 选择 <body> 元素并清空其内容
     let body = document.querySelector("body");
     body.innerHTML = "";
@@ -12,9 +12,9 @@ function Guide_Page() {
     div.classList.add("guide");
 
     // 创建 ODEN 标志
-    let logo = document.createElement("img");
-    logo.classList.add("oden-logo");
-    logo.src = "assets/logo.png"; // 设置 logo 图片路径
+    let feak_logo = document.createElement("img");
+    feak_logo.classList.add("feak-logo");
+    feak_logo.src = "assets/reussi.png"; // 设置 logo 图片路径
 
     // 创建通知部分的容器
     let notificationContainer = document.createElement("div");
@@ -53,7 +53,7 @@ function Guide_Page() {
     // 创建信息图标
     let infoIcon = document.createElement("img");
     infoIcon.classList.add("icon", "info-icon");
-    infoIcon.src = "assets/i.png";
+    infoIcon.src = "assets/statis.png";
 
     // 创建说明标题
     let instructionsTitle = document.createElement("div");
@@ -78,11 +78,11 @@ function Guide_Page() {
     let startButton = document.createElement("button");
     startButton.classList.add("button");
     startButton.textContent = "COMMENCER";
-    startButton.onclick = Instruction_Page;
+    startButton.onclick = Futur_Page;
     //startButton.onclick = FireScenario; // 点击按钮后调用 FireScenario 进入游戏
 
     // 将所有元素添加到主容器中
-    div.appendChild(logo);
+    div.appendChild(feak_logo);
     div.appendChild(notificationContainer);
     div.appendChild(instructionsContainer);
     div.appendChild(startButton);
@@ -93,5 +93,5 @@ function Guide_Page() {
 
 // 监听 DOM 加载完成后，初始化 Guide 页面
 document.addEventListener("DOMContentLoaded", (event) => {  
-    Guide_Page(); 
+    Reussi_Page(); 
 });
