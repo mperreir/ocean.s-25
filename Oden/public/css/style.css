@@ -247,6 +247,39 @@ body {
     text-align: center;
   }
 
+  /* 统计信息表格样式 */
+  .stats-table {
+    width: 100%; /* 表格宽度设为100%，以适应容器 */
+    border-spacing: 0; /* 移除单元格之间的间距 */
+    margin: 10px 0; /* 设置表格上下外边距为10px，左右保持默认 */
+  }
+
+  /* 统计信息标签样式 */
+  .stats-label {  
+      text-align: left; /* 文本左对齐 */
+      padding: 5px 0; /* 设置上下内边距为5px，左右保持默认 */
+      font-size: 16px; /* 设定字体大小为16px */
+      white-space: pre-line; /* 允许文本换行，同时保留空格 */
+      font-weight: bold; /* 文字加粗 */
+  }
+
+  /* 统计信息值样式 */
+  .stats-value {
+      text-align: left; /* 文本右对齐 */
+      padding: 5px 0; /* 设置上下内边距为5px，左右保持默认 */
+      font-size: 16px; /* 设定字体大小为16px */
+      font-weight: bold; /* 文字加粗 */
+  }
+
+  /* 统计信息注释文本样式 */
+  .stats-note {
+    font-size: 12px; /* 设置字体大小为 12px，使注释文本比正文更小 */
+    line-height: 1.4; /* 设置行高为 1.4 倍字体大小，提高可读性 */
+    margin-top: 15px; /* 在上方添加 15px 的外边距，与其他内容保持间距 */
+    text-align: left !important;; /* 文本左对齐，使其整齐对齐左侧 */
+    font-weight: normal; /* 文字加粗 */
+  }
+
   /* 按钮样式 */
   .guide .button {
     font-size: 1.3rem;

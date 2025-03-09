@@ -1,4 +1,4 @@
-function Reussi_Page() {
+function Echec_Page() {
     // 选择 <body> 元素并清空其内容
     let body = document.querySelector("body");
     body.innerHTML = "";
@@ -14,7 +14,7 @@ function Reussi_Page() {
     // 创建 ODEN 标志
     let feak_logo = document.createElement("img");
     feak_logo.classList.add("feak-logo");
-    feak_logo.src = "assets/reussi.png"; // 设置 logo 图片路径
+    feak_logo.src = "assets/echec.png"; // 设置 logo 图片路径
 
     // 创建通知部分的容器
     let notificationContainer = document.createElement("div");
@@ -36,7 +36,7 @@ function Reussi_Page() {
 
     // 创建通知文本元素
     let notifText = document.createElement("p");
-    notifText.innerHTML = "LA MARÉE NOIRE A ÉTÉ <br>MAÎTRISÉE AVANT DE POUVOIR <br>NUIRE À L'ENVIRONNEMENT !"; // 设置通知文本内容
+    notifText.innerHTML = "LA MARÉE NOIRE S'EST <br>PROPAGÉE TROP VITE ET TROP <br>LOIN."; // 设置通知文本内容
 
     // 将通知文本添加到内部容器
     notification.appendChild(notifText);
@@ -112,8 +112,7 @@ function Reussi_Page() {
     noteText.classList.add("stats-note");
     noteText.innerHTML = "/ 400 PPM EST LA CONCENTRATION NORMALE DE CO2<br>/ LE TEMPS RÉEL ET LA CONCENTRATION DE CO2 SONT ESTIMÉS EN FONCTION DU TEMPS PASSÉ DANS LE JEU ET DE L'AMPLEUR DE LA MARÉE NOIRE /";
     instructions.appendChild(noteText);
-
-    
+        
     // 将各个部分添加到说明容器中
     instructionsContainer.appendChild(infoIcon);
     instructionsContainer.appendChild(instructionsTitle);
@@ -123,7 +122,7 @@ function Reussi_Page() {
     let startButton = document.createElement("button");
     startButton.classList.add("button");
     startButton.textContent = "COMMENCER";
-    startButton.onclick = Echec_Page;
+    startButton.onclick = Futur_Page;
     //startButton.onclick = FireScenario; // 点击按钮后调用 FireScenario 进入游戏
 
     // 将所有元素添加到主容器中
@@ -138,5 +137,5 @@ function Reussi_Page() {
 
 // 监听 DOM 加载完成后，初始化 Guide 页面
 document.addEventListener("DOMContentLoaded", (event) => {  
-    Reussi_Page(); 
+    Echec_Page(); 
 });
