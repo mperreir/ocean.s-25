@@ -28,7 +28,7 @@ function End_Page() {
     // 创建通知标题
     let notificationTitle = document.createElement("div"); // 创建通知标题元素
     notificationTitle.classList.add("section-title");// 添加 CSS 类以应用样式
-    notificationTitle.innerHTML = "<br>NOTIFICATION";// 设置标题文本内容
+    notificationTitle.innerHTML = "<br>STATUT";// 设置标题文本内容
 
     // 创建通知内容的容器
     let notification = document.createElement("div");
@@ -58,7 +58,7 @@ function End_Page() {
     // 创建说明标题
     let instructionsTitle = document.createElement("div");
     instructionsTitle.classList.add("section-title");
-    instructionsTitle.innerHTML = "<br>STATUS";
+    instructionsTitle.innerHTML = "<br>NOTIFICATION";
 
     // 创建说明内容
     let instructions = document.createElement("div");
@@ -74,18 +74,10 @@ function End_Page() {
     instructionsContainer.appendChild(instructionsTitle);
     instructionsContainer.appendChild(instructions);
 
-    // 创建开始按钮
-    let startButton = document.createElement("button");
-    startButton.classList.add("button");
-    startButton.textContent = "COMMENCER";
-    startButton.onclick = FireScenario;
-    //startButton.onclick = FireScenario; // 点击按钮后调用 FireScenario 进入游戏
-
     // 将所有元素添加到主容器中
     div.appendChild(logo);
     div.appendChild(notificationContainer);
     div.appendChild(instructionsContainer);
-    div.appendChild(startButton);
     
     // 将主容器添加到 body
     body.appendChild(div);

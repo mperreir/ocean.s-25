@@ -79,7 +79,7 @@ function Guide_Page() {
     startButton.classList.add("button");
     startButton.textContent = "COMMENCER";
     startButton.onclick = Instruction_Page;
-    //startButton.onclick = FireScenario; // 点击按钮后调用 FireScenario 进入游戏
+    // startButton.onclick = FireScenario; // 点击按钮后调用 FireScenario 进入游戏
 
     // 将所有元素添加到主容器中
     div.appendChild(logo);

@@ -13,7 +13,7 @@ canvas {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 #hud {
@@ -32,8 +32,9 @@ canvas {
   background: rgba(0, 0, 0, 0.4);
   color: #ffffff;
   padding: 15px;
-  top: 0;
-  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
   border-radius: 5px;

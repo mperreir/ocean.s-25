@@ -1,4 +1,4 @@
-function Compare_Page() {
+function Compare_Page(time) {
     // 选择 <body> 元素并清空其内容
     let body = document.querySelector("body");
     body.innerHTML = "";
@@ -14,7 +14,7 @@ function Compare_Page() {
     // 创建 ODEN 标志
     let feak_logo = document.createElement("img");
     feak_logo.classList.add("feak-logo");
-    feak_logo.src = "assets/echec.png"; // 设置 logo 图片路径
+    feak_logo.src = "assets/comparaison.png"; // 设置 logo 图片路径
 
     // 创建通知部分的容器
     let notificationContainer = document.createElement("div");
@@ -91,7 +91,7 @@ function Compare_Page() {
     label1.textContent = "TEMPS DE JEU:";// 添加 CSS 类 "stats-label"，用于样式化标签
     label1.classList.add("stats-label");// 添加 CSS 类 "stats-label"，用于样式化标签
     let valueVous1 = document.createElement("td"); // 你（VOUS）数据
-    valueVous1.textContent = "24 SEC";
+    valueVous1.textContent = time + " SEC";
     valueVous1.classList.add("stats-value");
     let valueOden1 = document.createElement("td"); // ODEN 数据
     valueOden1.textContent = "10 SEC";
@@ -107,7 +107,7 @@ function Compare_Page() {
     label2.textContent = "TEMPS RÉEL:";
     label2.classList.add("stats-label");
     let valueVous2 = document.createElement("td"); // 你（VOUS）数据
-    valueVous2.textContent = "120 H";
+    valueVous2.textContent = ((time / 50) * 209).toFixed(0) + " H";
     valueVous2.classList.add("stats-value");
 
     let valueOden2 = document.createElement("td"); // ODEN 数据
@@ -125,7 +125,7 @@ function Compare_Page() {
     label3.textContent = "CONCENTRATION\nDE CO2 DANS L'AIR:";
     label3.classList.add("stats-label");
     let valueVous3 = document.createElement("td"); // 你（VOUS）数据
-    valueVous3.textContent = "520 PPM";
+    valueVous3.textContent = (440 + time * 3) + " PPM";
     valueVous3.classList.add("stats-value");
 
     let valueOden3 = document.createElement("td"); // ODEN 数据
@@ -153,9 +153,8 @@ function Compare_Page() {
     // 创建开始按钮
     let startButton = document.createElement("button");
     startButton.classList.add("button");
-    startButton.textContent = "COMMENCER";
+    startButton.textContent = "CONTINUER";
     startButton.onclick = End_Page;
-    //startButton.onclick = FireScenario; // 点击按钮后调用 FireScenario 进入游戏
 
     // 将所有元素添加到主容器中
     div.appendChild(feak_logo);

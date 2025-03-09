@@ -22,8 +22,6 @@ function FireScenario() {
 
     let textPause = document.createElement("div");
     textPause.innerText = "Glissez votre doigt pour diriger le bateau dans toutes les directions : haut, bas, gauche, droite.";
-    textPause.style.top = window.innerHeight / 2 - 20;
-    textPause.style.left = 0;
     textPause.style.margin = 10;
     textPause.style.color = "white";
 

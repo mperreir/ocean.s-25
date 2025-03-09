@@ -160,7 +160,7 @@ function gameLoop() {
       gameState.camera.orientation = 135;
     }
 
-    if (checkBoatNearOil(3) && !gameState.fire) {
+    if (checkBoatNearOil(3) && !checkBoatNearOil(1) && !gameState.fire) {
       document.getElementById("buttonFire").classList.remove("hidden");
     } else {
       document.getElementById("buttonFire").classList.add("hidden");
@@ -352,6 +352,10 @@ function initGame() {
               }
             }
           } else {
+            if (gameState.time === 0) {
+              Echec_Page(gameState.time);
+            }
+
             propagationFireSea('oilFire', 'sea', gameState.nbpropagationsea);
             gameState.nbpropagationsea--;
 
@@ -360,7 +364,7 @@ function initGame() {
               document.getElementById("buttonFire").classList.add("hidden");
               document.getElementById("divPad").classList.add("hidden");
               document.getElementById("pause").classList.add("hidden");
-              // canvas.remove();
+              Reussi_Page(gameState.time);
             }
           }
         }

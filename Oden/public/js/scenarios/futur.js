@@ -1,4 +1,4 @@
-function Futur_Page() {
+function Futur_Page(time) {
     // 选择 <body> 元素并清空其内容
     let body = document.querySelector("body");
     body.innerHTML = "";
@@ -36,7 +36,7 @@ function Futur_Page() {
 
     // 创建通知文本元素
     let notifText = document.createElement("p");
-    notifText.innerHTML = "<br><br>DÉCOUVREZ LA SOLUTION LA <br>PLUS EFFICACE POUR GÉRER<br> UNE MARÉE NOIRE : ODEN<br>, L'INNOVATION DU FUTUR.<br><br><br>"; // 设置通知文本内容
+    notifText.innerHTML = "<br><br>DÉCOUVREZ LA SOLUTION LA <br>PLUS EFFICACE POUR GÉRER<br> UNE MARÉE NOIRE : ODEN,<br> L'INNOVATION DU FUTUR.<br><br><br>"; // 设置通知文本内容
 
     // 将通知文本添加到内部容器
     notification.appendChild(notifText);
@@ -50,8 +50,7 @@ function Futur_Page() {
     let startButton = document.createElement("button");
     startButton.classList.add("button");
     startButton.textContent = "CONTINUER";
-    startButton.onclick = Compare_Page;
-    //startButton.onclick = FireScenario; // 点击按钮后调用 FireScenario 进入游戏
+    startButton.onclick = () => Compare_Page(time);
 
     // 将所有元素添加到主容器中
     div.appendChild(logo);

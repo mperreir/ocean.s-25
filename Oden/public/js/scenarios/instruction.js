@@ -49,7 +49,7 @@ function Instruction_Page() {
     let startButton = document.createElement("button");
     startButton.classList.add("button");
     startButton.textContent = "CONTINUER";
-    startButton.onclick = Reussi_Page; // 点击按钮后调用 FireScenario 进入游戏
+    startButton.onclick = FireScenario;
 
     // 将所有元素添加到主容器中
     div.appendChild(logo);
