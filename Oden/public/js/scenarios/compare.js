@@ -68,16 +68,37 @@ function Compare_Page() {
     let statsTable = document.createElement("table");// 创建一个 <table> 元素用于存放统计信息
     statsTable.classList.add("stats-table");// 为表格添加类名 "stats-table"，方便后续应用 CSS 样式
     
+    // 添加表头行（类别，VOUS，ODEN）
+    let headerRow = document.createElement("tr");
+    let headerCategory = document.createElement("td"); // "CATÉGORIE"
+    headerCategory.textContent = "CATÉGORIE";
+    headerCategory.classList.add("stats-label");
+    let headerVous = document.createElement("td"); // "VOUS"
+    headerVous.textContent = "VOUS";
+    headerVous.classList.add("stats-label");
+    let headerOden = document.createElement("td"); // "ODEN"
+    headerOden.textContent = "ODEN";
+    headerOden.classList.add("stats-label");
+    // 添加表头单元格到表头行
+    headerRow.appendChild(headerCategory);
+    headerRow.appendChild(headerVous);
+    headerRow.appendChild(headerOden);
+    // 添加表头行到表格
+    statsTable.appendChild(headerRow);
     // 添加游戏时间行
     let row1 = document.createElement("tr");// 创建一行（<tr>），用于显示“游戏时间”信息
     let label1 = document.createElement("td");// 创建第一列（<td>），用于存放“游戏时间”标签
     label1.textContent = "TEMPS DE JEU:";// 添加 CSS 类 "stats-label"，用于样式化标签
     label1.classList.add("stats-label");// 添加 CSS 类 "stats-label"，用于样式化标签
-    let value1 = document.createElement("td");// 创建第二列（<td>），用于存放“游戏时间”数值
-    value1.textContent = "24 SEC";// 设置游戏时间的数值（示例值 24 秒）
-    value1.classList.add("stats-value");// 添加 CSS 类 "stats-value"，用于样式化数值
+    let valueVous1 = document.createElement("td"); // 你（VOUS）数据
+    valueVous1.textContent = "24 SEC";
+    valueVous1.classList.add("stats-value");
+    let valueOden1 = document.createElement("td"); // ODEN 数据
+    valueOden1.textContent = "10 SEC";
+    valueOden1.classList.add("stats-value");
     row1.appendChild(label1);// 将“游戏时间”标签和数值单元格添加到该行
-    row1.appendChild(value1);
+    row1.appendChild(valueVous1);
+    row1.appendChild(valueOden1);
     statsTable.appendChild(row1);
     
     // 添加实际时间行
@@ -85,11 +106,17 @@ function Compare_Page() {
     let label2 = document.createElement("td");
     label2.textContent = "TEMPS RÉEL:";
     label2.classList.add("stats-label");
-    let value2 = document.createElement("td");
-    value2.textContent = "120 HOURS";
-    value2.classList.add("stats-value");
+    let valueVous2 = document.createElement("td"); // 你（VOUS）数据
+    valueVous2.textContent = "120 H";
+    valueVous2.classList.add("stats-value");
+
+    let valueOden2 = document.createElement("td"); // ODEN 数据
+    valueOden2.textContent = "30 H";
+    valueOden2.classList.add("stats-value");
+
     row2.appendChild(label2);
-    row2.appendChild(value2);
+    row2.appendChild(valueVous2);
+    row2.appendChild(valueOden2);
     statsTable.appendChild(row2);
     
     // 添加CO2浓度行
@@ -97,11 +124,16 @@ function Compare_Page() {
     let label3 = document.createElement("td");
     label3.textContent = "CONCENTRATION\nDE CO2 DANS L'AIR:";
     label3.classList.add("stats-label");
-    let value3 = document.createElement("td");
-    value3.textContent = "520 PPM";
-    value3.classList.add("stats-value");
+    let valueVous3 = document.createElement("td"); // 你（VOUS）数据
+    valueVous3.textContent = "520 PPM";
+    valueVous3.classList.add("stats-value");
+
+    let valueOden3 = document.createElement("td"); // ODEN 数据
+    valueOden3.textContent = "420 PPM";
+    valueOden3.classList.add("stats-value");
     row3.appendChild(label3);
-    row3.appendChild(value3);
+    row3.appendChild(valueVous3);
+    row3.appendChild(valueOden3);
     statsTable.appendChild(row3);
     
     // 将表格添加到通知内容中

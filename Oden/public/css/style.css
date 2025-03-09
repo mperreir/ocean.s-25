@@ -258,7 +258,7 @@ body {
   .stats-label {  
       text-align: left; /* 文本左对齐 */
       padding: 5px 0; /* 设置上下内边距为5px，左右保持默认 */
-      font-size: 16px; /* 设定字体大小为16px */
+      font-size: 15px; /* 设定字体大小为16px */
       white-space: pre-line; /* 允许文本换行，同时保留空格 */
       font-weight: bold; /* 文字加粗 */
   }
@@ -267,7 +267,7 @@ body {
   .stats-value {
       text-align: left; /* 文本右对齐 */
       padding: 5px 0; /* 设置上下内边距为5px，左右保持默认 */
-      font-size: 16px; /* 设定字体大小为16px */
+      font-size: 15px; /* 设定字体大小为16px */
       font-weight: bold; /* 文字加粗 */
   }
 
