@@ -325,6 +325,8 @@ function initGame() {
   const pad = document.getElementById("pad");
 
   pad.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    
     if (!gameState.started) {
       gameState.started = true;
       gameState.timer = setInterval(() => {
