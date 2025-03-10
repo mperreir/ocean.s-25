@@ -324,9 +324,7 @@ function initGame() {
 
   const pad = document.getElementById("pad");
 
-  pad.addEventListener("touchstart", (e) => {
-    e.preventDefault();
-    
+  pad.addEventListener("touchstart", (e) => {    
     if (!gameState.started) {
       gameState.started = true;
       gameState.timer = setInterval(() => {
@@ -401,6 +399,10 @@ function initGame() {
       document.getElementById("hudPause").classList.add("hidden");
     }
   });
+
+  document.ontouchmove = function (e) {
+    e.preventDefault();
+  }
 }
 
 function imageLoaded() {
