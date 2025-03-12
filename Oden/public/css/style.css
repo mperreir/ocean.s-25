@@ -3,7 +3,6 @@
 html, body {
   padding:0;
   margin:0;
-  overscroll-behavior-y: contain;
 }
 
 canvas {
@@ -313,3 +312,26 @@ body {
 
 
     /*//////////////////////////////////////////////////////////////////////*/
+
+/* body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    touch-action: none;
+    -webkit-overflow-scrolling: none;
+    overscroll-behavior: none;
+    overscroll-behavior-y: contain;
+} */
+
+#gameCanvas {
+    touch-action: none;
+    -webkit-overflow-scrolling: none;
+    overscroll-behavior: none;
+    overscroll-behavior-y: contain;
+}
+
+#divPad {
+    touch-action: none;
+    -webkit-overflow-scrolling: none;
+    overscroll-behavior: none;
+}

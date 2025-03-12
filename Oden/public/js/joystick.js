@@ -137,6 +137,7 @@ JoyStick.prototype.__create_fullscreen_div = function()
 	// to captures fast movements
 	function touch_hander( evt )
 	{
+		evt.preventDefault();
 		var touch_obj = evt.changedTouches ? evt.changedTouches[0] : evt;
 		if ( self.mouse_support && !(touch_obj.buttons === 1) )
 		{
@@ -162,9 +163,12 @@ JoyStick.prototype.__create_fullscreen_div = function()
 		self.control.style.top = self.y - self.inner_radius + 'px';
 		self.control.style.left = self.x - self.inner_radius + 'px';
 	}
-	this.bind( 'touchmove', touch_hander );
-	this.bind( 'touchstart', touch_hander );
-	this.bind( 'touchend', clear_flags );
+	this.bind( 'touchmove', touch_hander, { passive: false } );
+	this.bind( 'touchstart', touch_hander, { passive: false } );
+	this.bind( 'touchend', function(evt) {
+	  evt.preventDefault();
+	  clear_flags();
+	});
 	if ( this.mouse_support )
 	{
 		this.bind( 'mousedown', touch_hander );
