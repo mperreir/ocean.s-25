@@ -3,6 +3,7 @@
 html, body {
   padding:0;
   margin:0;
+  height: 100%;
   font-family: 'Univia Pro', sans-serif;
 }
 
@@ -111,218 +112,172 @@ body {
 }
 /* 按钮 */
 .button {
-  font-family: 'Orbitron', sans-serif;
   font-size: 1.2rem;
   font-weight: bold;
   color: black;
-  background: linear-gradient(to bottom, #ffffff, #d9d9d9);
+  background-color: #12B7B2;
   border: none;
   padding: 12px 25px;
-  border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-  margin-top: 150px;
+  margin-top: 1em;
 }
 
 .button:hover {
-  background: linear-gradient(to bottom, #e6e6e6, #bfbfbf);
+  background-color: white;
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 .btn {
-    border-radius: 4px;
-    background-color: #04AA6D;
-    border: none;
-    color: #FFFFFF;
-    text-align: center;
-    font-size: 28px;
-    padding: 20px;
-    width: 300px;
-    transition: all 0.5s;
-    cursor: pointer;
-    margin: 5px;
-  }
-  
-  .btn span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-  }
-  
-  .btn span:after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
-  }
-  
-  .btn:hover span {
-    padding-right: 25px;
-  }
-  
-  .btn:hover span:after {
-    opacity: 1;
-    right: 0;
-  }
-  /*//////////////////////////////////////////////////////////////////////*/
-  /* Guide 页面整体布局 */
-  .guide {
-    width: 90%;
-    max-width: 400px;
-    padding: 20px;
-    text-align: center;
-  }
-
-  /* ODEN Logo */
-  .oden-logo {
-    margin-bottom: 20px;
-    width: 172.55px; /* 设置图标宽度为 40 像素 */
-    height: 64px; /* 设置图标高度为 40 像素 */
-  }
-  .feak-logo {
-    margin-bottom: 20px;
-    width: 320px; /* 设置图标宽度为 40 像素 */
-    height: 81px; /* 设置图标高度为 40 像素 */
-  }
-
-  /* 通知容器 */
-  .notification-container {
-    position: relative;
-    margin-bottom: 20px;
-    text-align: left;
-  }
-
-  /* 图标样式设置 */
-  .icon {
-    position: absolute; /* 绝对定位，使图标可以自由放置 */
-    left: 0; /* 将图标定位到父元素的最左侧 */
-    top: 0; /* 将图标定位到父元素的最顶部 */
-    width: 60px; /* 设置图标宽度为 40 像素 */
-    height: 60px; /* 设置图标高度为 40 像素 */
-    z-index: 2; /* 确保图标位于其他元素之上 */
-    background-color: transparent; /* 使图标背景透明 */
-  }
-
-  /* 标题样式 */
-  .section-title {
-    background-color: #7ACDCC; /* 设置背景颜色为浅蓝绿色 */
-    color: #000; /* 文字颜色为黑色 */
-    padding: 15px 10px 10px 70px; /* 设置内边距，左侧预留空间以容纳图标 */
-    font-weight: bold; /* 设置字体加粗 */
-    position: relative; /* 设置相对定位，以便后续调整 */
-    clip-path: polygon(0 45%, 85% 45%, 100% 100%, 0 100%); /* 使用剪裁路径创建不规则形状，使其右下角有一个斜边 */
-    width: 180px; /* 设置固定宽度 */
-    height: 35px;
-    font-size: 15px; /* 设置字体大小 */
-  }
-
-  /* 通知内容 */
-  .notification {
-    background-color: #7ACDCC; /* 设置背景颜色 */
-    padding: 25px; /* 使内容与边框保持间距 */
-    margin-top: -1px;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 1.4;
-    position: relative;
+  border-radius: 4px;
+  background-color: #04AA6D;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 300px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
 }
 
-  /* 内嵌边框效果 */
-  .notification::before {
-    content: ""; /* 伪元素用于创建内嵌边框 */
-    position: absolute;
-    top: 10px; /* 使边框比容器小一圈 */
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-    border: 1px solid #107B97; /* 黑色内嵌边框 */
-    pointer-events: none; /* 使边框不会影响交互 */
-  }
-  .notification p {
-    margin: 0;
-    text-align: center;
-  }
+.btn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
 
-  /* 统计信息表格样式 */
-  .stats-table {
-    width: 100%; /* 表格宽度设为100%，以适应容器 */
-    border-spacing: 0; /* 移除单元格之间的间距 */
-    margin: 10px 0; /* 设置表格上下外边距为10px，左右保持默认 */
-  }
+.btn span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
 
-  /* 统计信息标签样式 */
-  .stats-label {  
-      text-align: left; /* 文本左对齐 */
-      padding: 5px 0; /* 设置上下内边距为5px，左右保持默认 */
-      font-size: 15px; /* 设定字体大小为16px */
-      white-space: pre-line; /* 允许文本换行，同时保留空格 */
-      font-weight: bold; /* 文字加粗 */
-  }
+.btn:hover span {
+  padding-right: 25px;
+}
 
-  /* 统计信息值样式 */
-  .stats-value {
-      text-align: left; /* 文本右对齐 */
-      padding: 5px 0; /* 设置上下内边距为5px，左右保持默认 */
-      font-size: 15px; /* 设定字体大小为16px */
-      font-weight: bold; /* 文字加粗 */
-  }
+.btn:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+/*//////////////////////////////////////////////////////////////////////*/
+/* Guide 页面整体布局 */
+.guide {
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
 
-  /* 统计信息注释文本样式 */
-  .stats-note {
-    font-size: 12px; /* 设置字体大小为 12px，使注释文本比正文更小 */
-    line-height: 1.4; /* 设置行高为 1.4 倍字体大小，提高可读性 */
-    margin-top: 15px; /* 在上方添加 15px 的外边距，与其他内容保持间距 */
-    text-align: left !important;; /* 文本左对齐，使其整齐对齐左侧 */
-    font-weight: normal; /* 文字加粗 */
-  }
+/* ODEN Logo */
+.oden-logo {
+  margin-bottom: 20px;
+  width: 172.55px; /* 设置图标宽度为 40 像素 */
+  height: 64px; /* 设置图标高度为 40 像素 */
+}
+.feak-logo {
+  margin-bottom: 20px;
+  width: 320px; /* 设置图标宽度为 40 像素 */
+  height: 81px; /* 设置图标高度为 40 像素 */
+}
 
-  /* 按钮样式 */
-  .guide .button {
-    font-size: 1.3rem;
-    font-weight: bold;
-    padding: 12px 30px;
-    background: linear-gradient(to bottom, #00ff99, #00cc66);
-    color: white;
-    border: none;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    margin-top: 20px;
-  }
-  /*//////////////////////////////////////////////////////////////////////*/
+/* 通知容器 */
+.notification-container {
+  position: relative;
+  margin-bottom: 20px;
+  text-align: left;
+}
 
+/* 图标样式设置 */
+.icon {
+  position: absolute; /* 绝对定位，使图标可以自由放置 */
+  left: 0; /* 将图标定位到父元素的最左侧 */
+  top: 0; /* 将图标定位到父元素的最顶部 */
+  width: 60px; /* 设置图标宽度为 40 像素 */
+  height: 60px; /* 设置图标高度为 40 像素 */
+  z-index: 2; /* 确保图标位于其他元素之上 */
+  background-color: transparent; /* 使图标背景透明 */
+}
 
+/* 标题样式 */
+.section-title {
+  background-color: #7ACDCC; /* 设置背景颜色为浅蓝绿色 */
+  color: #000; /* 文字颜色为黑色 */
+  padding: 15px 10px 10px 70px; /* 设置内边距，左侧预留空间以容纳图标 */
+  font-weight: bold; /* 设置字体加粗 */
+  position: relative; /* 设置相对定位，以便后续调整 */
+  clip-path: polygon(0 45%, 85% 45%, 100% 100%, 0 100%); /* 使用剪裁路径创建不规则形状，使其右下角有一个斜边 */
+  width: 180px; /* 设置固定宽度 */
+  height: 35px;
+  font-size: 15px; /* 设置字体大小 */
+}
 
+/* 通知内容 */
+.notification {
+  background-color: #7ACDCC; /* 设置背景颜色 */
+  padding: 25px; /* 使内容与边框保持间距 */
+  margin-top: -1px;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 1.4;
+  position: relative;
+}
 
+/* 内嵌边框效果 */
+.notification::before {
+  content: ""; /* 伪元素用于创建内嵌边框 */
+  position: absolute;
+  top: 10px; /* 使边框比容器小一圈 */
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 1px solid #107B97; /* 黑色内嵌边框 */
+  pointer-events: none; /* 使边框不会影响交互 */
+}
+.notification p {
+  margin: 0;
+  text-align: center;
+}
 
+/* 统计信息表格样式 */
+.stats-table {
+  width: 100%; /* 表格宽度设为100%，以适应容器 */
+  border-spacing: 0; /* 移除单元格之间的间距 */
+  margin: 10px 0; /* 设置表格上下外边距为10px，左右保持默认 */
+}
 
+/* 统计信息标签样式 */
+.stats-label {  
+    text-align: left; /* 文本左对齐 */
+    padding: 5px 0; /* 设置上下内边距为5px，左右保持默认 */
+    font-size: 15px; /* 设定字体大小为16px */
+    white-space: pre-line; /* 允许文本换行，同时保留空格 */
+    font-weight: bold; /* 文字加粗 */
+}
 
+/* 统计信息值样式 */
+.stats-value {
+    text-align: left; /* 文本右对齐 */
+    padding: 5px 0; /* 设置上下内边距为5px，左右保持默认 */
+    font-size: 15px; /* 设定字体大小为16px */
+    font-weight: bold; /* 文字加粗 */
+}
 
-
-
-
-
-
-
-
-
-
-    /*//////////////////////////////////////////////////////////////////////*/
-
-/* body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    touch-action: none;
-    -webkit-overflow-scrolling: none;
-    overscroll-behavior: none;
-    overscroll-behavior-y: contain;
-} */
+/* 统计信息注释文本样式 */
+.stats-note {
+  font-size: 12px; /* 设置字体大小为 12px，使注释文本比正文更小 */
+  line-height: 1.4; /* 设置行高为 1.4 倍字体大小，提高可读性 */
+  margin-top: 15px; /* 在上方添加 15px 的外边距，与其他内容保持间距 */
+  text-align: left !important;; /* 文本左对齐，使其整齐对齐左侧 */
+  font-weight: normal; /* 文字加粗 */
+}
 
 #gameCanvas {
     touch-action: none;
