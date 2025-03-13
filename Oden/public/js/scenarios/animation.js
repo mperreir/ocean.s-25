@@ -3,10 +3,11 @@ function Animation(time) {
     body.innerHTML = "";
 
     let video = document.createElement("video");
-    video.innerHTML = "Your browser does not support the video";
+    video.innerHTML = "Votre navigateur ne supporte pas la vidéo";
     video.width = window.innerWidth;
     video.height = window.innerHeight;
     video.autoplay = true;
+    video.playsinline = true;
     let source = document.createElement("source");
     source.src = "assets/animation.mp4";
     source.type = "video/mp4";
