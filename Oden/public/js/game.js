@@ -4,6 +4,7 @@ const TILE_HEIGHT = TILE_SIZE;
 
 const TILE_NBROW = 41;
 const TILE_NBCOL = 41;
+const time = 50;
 
 let joystick;
 
@@ -35,12 +36,11 @@ let gameState = {
   oilImageFire: new Image(),
   baseLeftImage: new Image(),
   baseRightImage: new Image(),
-  time: 0,
   oilcenter: {
     x: 0,
     y: 0
   },
-  time: 50,
+  time: time,
   timer: null,
   started: false,
   nbpropagation: 1,
@@ -330,10 +330,10 @@ function initGame() {
       gameState.timer = setInterval(() => {
         if (!gameState.paused) {
           if (gameState.time > 0 && (!gameState.fire || gameState.nbpropagationfire >= 0)) {
-            const time = document.getElementById("time");
+            const timeelt = document.getElementById("time");
             const realtime = document.getElementById("Realtime");
             gameState.time--;
-            gameState.time < 10 ? time.innerText = "0"+gameState.time : time.innerText = gameState.time;
+            gameState.time < 10 ? timeelt.innerText = "0"+gameState.time : timeelt.innerText = gameState.time;
             realtime.innerText = ((gameState.time / 50) * 209).toFixed(2);
             
             if (gameState.fire) {
@@ -353,7 +353,7 @@ function initGame() {
             }
           } else {
             if (gameState.time === 0) {
-              Echec_Page(gameState.time);
+              Echec_Page(time);
             }
 
             propagationFireSea('oilFire', 'sea', gameState.nbpropagationsea);
@@ -364,7 +364,7 @@ function initGame() {
               document.getElementById("buttonFire").classList.add("hidden");
               document.getElementById("divPad").classList.add("hidden");
               document.getElementById("pause").classList.add("hidden");
-              Reussi_Page(gameState.time);
+              Reussi_Page(time - gameState.time);
             }
           }
         }

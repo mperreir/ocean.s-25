@@ -74,7 +74,7 @@ function Echec_Page() {
     label1.textContent = "TEMPS DE JEU:";// 添加 CSS 类 "stats-label"，用于样式化标签
     label1.classList.add("stats-label");// 添加 CSS 类 "stats-label"，用于样式化标签
     let value1 = document.createElement("td");// 创建第二列（<td>），用于存放“游戏时间”数值
-    value1.textContent = "24 SEC";// 设置游戏时间的数值（示例值 24 秒）
+    value1.textContent = time + " SEC";// 设置游戏时间的数值（示例值 24 秒）
     value1.classList.add("stats-value");// 添加 CSS 类 "stats-value"，用于样式化数值
     row1.appendChild(label1);// 将“游戏时间”标签和数值单元格添加到该行
     row1.appendChild(value1);
@@ -86,7 +86,7 @@ function Echec_Page() {
     label2.textContent = "TEMPS RÉEL:";
     label2.classList.add("stats-label");
     let value2 = document.createElement("td");
-    value2.textContent = "120 HOURS";
+    value2.textContent = ((time / 50) * 209).toFixed(2) + " HOURS";
     value2.classList.add("stats-value");
     row2.appendChild(label2);
     row2.appendChild(value2);
@@ -98,7 +98,7 @@ function Echec_Page() {
     label3.textContent = "CONCENTRATION\nDE CO2 DANS L'AIR:";
     label3.classList.add("stats-label");
     let value3 = document.createElement("td");
-    value3.textContent = "520 PPM";
+    value3.textContent = (440 + time * 3) + " PPM";
     value3.classList.add("stats-value");
     row3.appendChild(label3);
     row3.appendChild(value3);
@@ -133,8 +133,3 @@ function Echec_Page() {
     // 将主容器添加到 body
     body.appendChild(div);
 }
-
-// 监听 DOM 加载完成后，初始化 Guide 页面
-document.addEventListener("DOMContentLoaded", (event) => {  
-    Echec_Page(); 
-});

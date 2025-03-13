@@ -165,8 +165,3 @@ function Compare_Page(time) {
     // 将主容器添加到 body
     body.appendChild(div);
 }
-
-// 监听 DOM 加载完成后，初始化 Guide 页面
-document.addEventListener("DOMContentLoaded", (event) => {  
-    Compare_Page(); 
-});

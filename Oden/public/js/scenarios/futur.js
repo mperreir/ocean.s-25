@@ -50,7 +50,7 @@ function Futur_Page(time) {
     let startButton = document.createElement("button");
     startButton.classList.add("button");
     startButton.textContent = "CONTINUER";
-    startButton.onclick = () => Compare_Page(time);
+    startButton.onclick = () => Animation(time);
 
     // 将所有元素添加到主容器中
     div.appendChild(logo);
@@ -60,8 +60,3 @@ function Futur_Page(time) {
     // 将主容器添加到 body
     body.appendChild(div);
 }
-
-// 监听 DOM 加载完成后，初始化 Guide 页面
-document.addEventListener("DOMContentLoaded", (event) => {  
-    Futur_Page(); 
-});
