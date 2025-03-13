@@ -57,11 +57,10 @@ gameState.camera.y = 0;
 function generateMap(cols, rows) {
   const map = new Map();
 
-  const oilX = getRandomInt(cols / 2, cols - 1);
-  const oilY = getRandomInt(rows / 2, rows - 1);
+  const oil = randomOilCenter(cols, rows);
 
-  gameState.oilcenter.x = oilX;
-  gameState.oilcenter.y = oilY;
+  gameState.oilcenter.x = oil.x;
+  gameState.oilcenter.y = oil.y;
 
   for (let x = 0; x < cols; x++) {
     for (let y = 0; y < rows; y++) {
@@ -74,19 +73,19 @@ function generateMap(cols, rows) {
           type: 'sand',
           oilAmount: 0
         });
-      } else if (x === oilX && y === oilY) {
+      } else if (x === oil.x && y === oil.y) {
         map.set(`${x},${y}`, {
           x, y,
           type: 'oil', 
           oilAmount: 0.2
         });
-      } else if (x === oilX && y === oilY + 1) {
+      } else if (x === oil.x && y === oil.y + 1) {
         map.set(`${x},${y}`, {
           x, y,
           type: 'baseLeft', 
           oilAmount: 0
         });
-      } else if (x === oilX + 1 && y === oilY + 1) {
+      } else if (x === oil.x + 1 && y === oil.y + 1) {
         map.set(`${x},${y}`, {
           x, y,
           type: 'baseRight', 
@@ -119,7 +118,7 @@ function gameLoop() {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    let speed = 0.04;
+    let speed = 0.02;
 
     if (['deepsea', 'oil'].includes(ceilType((gameState.camera.x + gameState.ship.x / TILE_WIDTH), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT)))) {
       speed = 0.01;
@@ -466,4 +465,31 @@ function propagationFireSea(checktype, type, dist) {
       };
     }
   }
+}
+
+function randomOilCenter(cols, rows) {
+  const corner = getRandomInt(0, 3);
+    
+  let oilX, oilY;
+
+  switch (corner) {
+      case 0: // Top Left
+          oilX = getRandomInt(0, 4);
+          oilY = getRandomInt(0, 4);
+          break;
+      case 1: // Top Right
+          oilX = getRandomInt(cols - 4, cols - 1);
+          oilY = getRandomInt(0, 4);
+          break;
+      case 2: // Bottom Left
+          oilX = getRandomInt(0, 4);
+          oilY = getRandomInt(rows - 4, rows - 1);
+          break;
+      case 3: // Bottom Right
+          oilX = getRandomInt(cols - 4, cols - 1);
+          oilY = getRandomInt(rows - 4, rows - 1);
+          break;
+  }
+
+  return {x : oilX,  y: oilY};
 }

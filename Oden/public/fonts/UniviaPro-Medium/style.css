@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Univia Pro';
+    src: local('Univia Pro Medium'), local('Univia-Pro-Medium'),
+        url('UniviaPro-Medium.woff2') format('woff2'),
+        url('UniviaPro-Medium.woff') format('woff'),
+        url('UniviaPro-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }
