@@ -8,7 +8,7 @@ function Animation(time) {
     video.height = window.innerHeight;
     video.autoplay = true;
     let source = document.createElement("source");
-    source.src = "./../../assets/animation.mp4";
+    source.src = "assets/animation.mp4";
     source.type = "video/mp4";
 
     video.addEventListener("ended", () => Compare_Page(time), false);
