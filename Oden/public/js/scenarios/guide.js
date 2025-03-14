@@ -79,7 +79,6 @@ function Guide_Page() {
     startButton.classList.add("button");
     startButton.textContent = "COMMENCER";
     startButton.onclick = FireScenario;
-    //startButton.onclick = Echec_Page;
 
     // 将所有元素添加到主容器中
     div.appendChild(logo);
