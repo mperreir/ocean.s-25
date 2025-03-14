@@ -17,8 +17,9 @@ function buttonFire(x, y, inner_radius) {
     div_style.borderWidth = '1px';
     div_style.borderColor = 'rgba(200,200,200,0.8)';
     div_style.borderStyle = 'solid';
-    // this.control.innerHTML = "Fire";
-    // this.control.style.textAlign = "center";
-    // this.c
+    this.control.innerHTML = "Fire";
+    this.control.style.textAlign = "center";
+    this.control.style.lineHeight = inner_radius * 2 + 'px';
+    this.control.style.color = "white";
     document.getElementById("divPad").appendChild( this.control );
 }
