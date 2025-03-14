@@ -320,7 +320,7 @@ function initGame() {
     mouse_support: false,
   });
 
-  buttonFire(window.innerWidth / 2 + 120, window.innerHeight - 150, 30);
+  buttonFire(window.innerWidth / 2 - 120, window.innerHeight - 150, 30);
 
   const pad = document.getElementById("pad");
 
