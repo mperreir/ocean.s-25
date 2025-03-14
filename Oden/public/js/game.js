@@ -119,7 +119,7 @@ function gameLoop() {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    let speed = 0.02;
+    let speed = 0.03;
 
     if (['deepsea', 'oil'].includes(ceilType((gameState.camera.x + gameState.ship.x / TILE_WIDTH), (gameState.camera.y + gameState.ship.y / TILE_HEIGHT)))) {
       speed = 0.01;
