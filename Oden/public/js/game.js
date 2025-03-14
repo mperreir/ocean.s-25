@@ -48,6 +48,7 @@ let gameState = {
   nbpropagationsea: 1,
   fire: false,
   paused: false,
+  opacity: 0.8,
 };
 
 gameState.camera.x = 0;
@@ -261,7 +262,7 @@ function gameLoop() {
         gameState.ship.y + TILE_HEIGHT / 2, 
         ((gameState.oilcenter.x - gameState.camera.x) * TILE_WIDTH), 
         ((gameState.oilcenter.y - gameState.camera.y) * TILE_HEIGHT), 
-        TILE_SIZE);
+        TILE_SIZE, gameState.opacity);
       ctx.stroke();
     }
   }
@@ -334,6 +335,7 @@ function initGame() {
             gameState.time--;
             gameState.time < 10 ? timeelt.innerText = "0"+gameState.time : timeelt.innerText = gameState.time;
             realtime.innerText = ((gameState.time / 50) * 209).toFixed(2);
+            gameState.opacity === 0.8 ? gameState.opacity = 0.4 : gameState.opacity = 0.8; 
             
             if (gameState.fire) {
               propagationFireSea('oil', 'oilFire', gameState.nbpropagationfire);

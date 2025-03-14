@@ -1,4 +1,4 @@
-function Echec_Page() {
+function Echec_Page(time) {
     // 选择 <body> 元素并清空其内容
     let body = document.querySelector("body");
     body.innerHTML = "";
@@ -123,7 +123,7 @@ function Echec_Page() {
     let startButton = document.createElement("button");
     startButton.classList.add("button");
     startButton.textContent = "CONTINUER";
-    startButton.onclick = () => Futur_Page(0);
+    startButton.onclick = () => Futur_Page(time);
 
     // 将所有元素添加到主容器中
     div.appendChild(feak_logo);
