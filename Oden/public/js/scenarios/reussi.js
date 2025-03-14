@@ -2,6 +2,7 @@ function Reussi_Page(time) {
     // 选择 <body> 元素并清空其内容
     let body = document.querySelector("body");
     body.innerHTML = "";
+    body.style.alignItems = "normal";
 
     // 设置背景颜色，移除背景图像
     document.body.style.backgroundImage = "none";

@@ -68,7 +68,7 @@ canvas {
 body {
   display: flex;
   justify-content: center;
-  /* align-items: center; */
+  align-items: center;
   /* background-color: #0B2B2D; */
   /* height: 100vh; */
   margin: 0;
@@ -124,11 +124,6 @@ body {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.button:hover {
-  background-color: white;
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
-}
-
 .btn {
   border-radius: 4px;
   background-color: #04AA6D;
@@ -159,14 +154,6 @@ body {
   transition: 0.5s;
 }
 
-.btn:hover span {
-  padding-right: 25px;
-}
-
-.btn:hover span:after {
-  opacity: 1;
-  right: 0;
-}
 /*//////////////////////////////////////////////////////////////////////*/
 /* Guide 页面整体布局 */
 .guide {

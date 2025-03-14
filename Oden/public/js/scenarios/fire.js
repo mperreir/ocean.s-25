@@ -2,6 +2,7 @@
 function FireScenario() {
     let body = document.querySelector("body");
     body.innerHTML = "";
+    body.style.alignItems = "center";
 
     let canvas = document.createElement("canvas");
     canvas.setAttribute("id", "gameCanvas");
