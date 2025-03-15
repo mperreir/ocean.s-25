@@ -1,11 +1,11 @@
 # Oden Project
 
 <div align="center">
-  <img src="public/assets/logo.png" alt="Oden Logo" width="200">
+  <img src="Oden/public/assets/logo.png" alt="Oden Logo" width="200">
   <p>Interactive Application for Marine Oil Spill Simulation and Emergency Response</p>
 </div>
 
-## Project Overview
+## Project Overview    
 
 Oden is an interactive application designed to simulate marine oil spill events and their emergency response processes. The project combines a web application with Arduino hardware interaction, providing users with an immersive learning and training environment to understand the impact of oil spills on the marine environment and how to effectively respond to such emergencies.
 
