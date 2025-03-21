@@ -354,7 +354,7 @@ function initGame() {
             }
           } else {
             if (gameState.time === 0) {
-              Echec_Page(time);
+              Results_Page(time, false);
             }
 
             propagationFireSea('oilFire', 'sea', gameState.nbpropagationsea);
@@ -365,7 +365,7 @@ function initGame() {
               document.getElementById("buttonFire").classList.add("hidden");
               document.getElementById("divPad").classList.add("hidden");
               document.getElementById("pause").classList.add("hidden");
-              Reussi_Page(time - gameState.time);
+              Results_Page(time - gameState.time, true);
             }
           }
         }

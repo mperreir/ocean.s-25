@@ -1,16 +1,11 @@
 
-function newButton(title, func) {
-    let menu = document.createElement('button');
-    let span = document.createElement("span");
-    span.innerHTML = title;
-    menu.appendChild(span);
-    menu.classList.add("btn");
+function newButton(text, func) {
+    let button = document.createElement("button");
+    button.classList.add("button");
+    button.textContent = text;
+    button.onclick = func;
 
-    menu.addEventListener("click", () => {
-        func();
-    });
-
-    return menu;
+    return button;
 }
 
 function buttonFire(x, y, inner_radius) {
@@ -60,4 +55,40 @@ function canvas_arrow(context, fromx, fromy, tox, toy, length, opacity) {
         tox - headlen * Math.cos(angle + Math.PI / 6),
         toy - headlen * Math.sin(angle + Math.PI / 6)
     );
+}
+
+function newPage(notifTitle, new_notifText) {
+    let body = document.querySelector("body");
+    body.innerHTML = "";
+
+    document.body.style.backgroundImage = "none";
+    document.body.style.background = "linear-gradient(to bottom, #0F3D40, #0B2B2D)";
+
+    let div = document.createElement("div");
+    div.classList.add("guide");
+
+    let notificationContainer = document.createElement("div");
+    notificationContainer.classList.add("notification-container");
+
+    let warningIcon = document.createElement("img");
+    warningIcon.classList.add("icon", "warning-icon");
+    warningIcon.src = "assets/!.png";
+
+    let notificationTitle = document.createElement("div");
+    notificationTitle.classList.add("section-title");
+    notificationTitle.innerHTML = notifTitle;
+
+    let notification = document.createElement("div");
+    notification.classList.add("notification");
+
+    let notifText = document.createElement("p");
+    notifText.innerHTML = new_notifText;
+
+    notification.appendChild(notifText);
+
+    notificationContainer.appendChild(warningIcon);
+    notificationContainer.appendChild(notificationTitle);
+    notificationContainer.appendChild(notification);
+
+    return {body, div, notificationContainer};
 }
