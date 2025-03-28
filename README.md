@@ -43,6 +43,8 @@ Open in your browser: http://localhost:8080
 
 ### Arduino Setup
 
+For detailed hardware installation instructions, please refer to the guide at `Oden/Arduino/Guide d'installation.pdf`.
+
 1. Connect the Arduino board to your computer
 2. Open Arduino IDE
 3. Load the `Arduino/sketch_mar3a/sketch_mar3a.ino` file
