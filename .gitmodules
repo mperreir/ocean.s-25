@@ -1,0 +1,3 @@
+[submodule "Mareva"]
+	path = Mareva
+	url = git@github.com:MarwanLeGoat/Mareva.git
