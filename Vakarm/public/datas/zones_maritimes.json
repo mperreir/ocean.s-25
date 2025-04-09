@@ -1,0 +1,53 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Atlantique Nord",
+        "superficie": "41,1 millions de km²",
+        "ecosysteme": "Riche en cétacés et en poissons migrateurs"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-60, 50], [-20, 50], [-20, 30], [-60, 30], [-60, 50]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Pacifique Ouest",
+        "superficie": "64,1 millions de km²",
+        "ecosysteme": "Coraux, tortues marines et poissons tropicaux"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [130, 10], [180, 10], [180, -30], [130, -30], [130, 10]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "nom": "Océan Indien",
+        "superficie": "70,6 millions de km²",
+        "ecosysteme": "Forte biodiversité avec de nombreuses espèces endémiques"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [50, -10], [100, -10], [100, -40], [50, -40], [50, -10]
+          ]
+        ]
+      }
+    }
+  ]
+}

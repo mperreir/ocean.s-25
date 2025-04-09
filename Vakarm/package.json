@@ -1,0 +1,20 @@
+{
+  "name": "vakarm",
+  "version": "1.0.0",
+  "description": "Ce projet vise à illustrer l’impact du bruit (navires classiques / navires Greenov) sur les espèces marines, avec une sélection de **zones maritimes** affichées sur une carte **Leaflet**, puis une **simulation p5.js** (Oceansim) où l’on observe le niveau de bruit et le comportement des poissons.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "socket.io": "^4.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}

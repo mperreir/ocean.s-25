@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Informations - Bruit Sous-Marin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap">
+  <link rel="stylesheet" href="/css/infos.css">
+</head>
+<body>
+  <h1>🌊 Impact du Bruit Sous-Marin</h1>
+  <div class="info-container">
+    <div class="noise-info" id="noiseLine">Niveau de bruit : 120 dB</div>
+    <div class="noise-info" id="shipsLine">Nombre de navires : 0</div>
+
+    <div class="tranches-row">
+      <div id="boxGreen" class="tranche-box box-green">120-140 dB</div>
+      <div id="boxYellow" class="tranche-box box-yellow">140-155 dB</div>
+      <div id="boxOrange" class="tranche-box box-orange">155-170 dB</div>
+      <div id="boxRed" class="tranche-box box-red">+170 dB</div>
+    </div>
+
+    <div class="details-zone" id="detailsZone">
+      <div id="detailsTitle">🌱 Conditions Quasi-Naturelles</div>
+      <div id="detailsContent">
+        La vie marine est normale, les espèces communiquent sans perturbation.
+      </div>
+      <!-- <div id="detailsMedia" class="details-media">
+        <img id="detailsImage" 
+             src="/media/default.jpg" 
+             alt="Illustration du bruit" 
+             style="width: 100%; border-radius: 10px; display: none;">
+        <video id="detailsVideo" 
+               controls 
+               style="width: 100%; border-radius: 10px; display: none;">
+          <source id="videoSource" src="" type="video/mp4">
+          Votre navigateur ne supporte pas la vidéo.
+        </video>
+      </div> -->
+    </div>
+  </div>
+  <div id="greenovPopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#fff; padding:20px; border-radius:10px;">
+      <h2>Solutions Greenov</h2>
+      <p>
+      Le bruit atteint un niveau critique ! 🆘 Les risques d’échouage
+      de mammifères marins explosent, et de nombreuses espèces subissent un stress chronique fatal. ☠️
+      </p>
+      <button id="btnGoGreenov" type="button" class="btn btn-primary">Découvrir la solution</button>
+      <button id="btnClosePopup">Fermer</button>
+    </div>
+  </div>
+
+  <script src="/js/infos.js"></script>
+</body>
+</html>
