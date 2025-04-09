@@ -1,0 +1,36 @@
+<!-- views/index2/index.ejs -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Accueil - Bruit Sous-Marin (index2)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap 5 (CDN) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- Animate.css (CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+  <!-- Notre CSS perso -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="video-background">
+  <video autoplay muted loop id="bgVideo">
+    <source src="/media/poissons-bg.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="overlay-text container">
+  <h1 class="display-3 fw-bold animate__animated animate__fadeInDown">Nous sommes bien ICI</h1>
+</div>
+
+<!-- Socket.IO client -->
+<script src="/socket.io/socket.io.js"></script>
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+<!-- JS dédié à index2 -->
+<script src="/js/index2.js"></script>
+</body>
+</html>

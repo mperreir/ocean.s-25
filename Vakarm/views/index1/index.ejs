@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Accueil - Bruit Sous-Marin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Bootstrap 5 (CDN) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- Animate.css (CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+  <!-- Notre CSS perso -->
+  <link rel="stylesheet" href="/css/styleIndex1.css">
+</head>
+<body>
+  <div class="container animate__animated animate__fadeIn">
+    <h1>Bienvenue sur <span style="color:#00bcd4">VAKARM</span></h1>
+    <p>Explorez les impacts du bruit sous-marin et découvrez des solutions innovantes pour protéger la faune marine.</p>
+    <button id="startBtn" class="btn btn-primary mt-4 animate__animated animate__pulse animate__infinite">Découvrir</button>
+  </div>
+
+  <!-- Socket.IO client -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <!-- JS dédié à index1 -->
+  <script src="/js/index1.js"></script>
+</body>
+</html>

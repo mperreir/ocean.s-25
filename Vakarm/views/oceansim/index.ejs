@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>OceanSim – Horizontal Ships & Poisson States</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- p5.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+  <!-- Ton CSS -->
+  <link rel="stylesheet" href="/css/oceansim.css">
+</head>
+<body>
+
+<h1 style="text-align:center;">Simulation Océan – Classiques vs Greenov</h1>
+<!-- Cadre : zone info (nom, superficie, écosystème) -->
+<div id="zoneInfo">
+  <h2 id="zoneTitle">Zone : Inconnue</h2>
+  <p id="zoneSuperficie"></p>
+  <p id="zoneEcosysteme"></p>
+</div>
+
+<!-- Canvas p5 -->
+<div id="canvasContainer" style="width:100%; max-width:900px; height:400px; border:1px solid #ccc; margin:auto;"></div>
+
+<!-- Sliders -->
+<div class="controls" style="text-align:center; margin:20px 0;">
+  <label for="classicSlider" style="color:red; font-weight:bold;">
+    Navires Classiques :
+  </label>
+  <input type="range" id="classicSlider" min="0" max="20" value="0">
+  <span id="classicCountDisplay">0</span>
+
+  <label for="greenovSlider" style="color:green; font-weight:bold; margin-left:20px;">
+    Navires Greenov :
+  </label>
+  <input type="range" id="greenovSlider" min="0" max="20" value="0">
+  <span id="greenovCountDisplay">0</span>
+</div>
+
+<!-- Instructions / consignes -->
+<div class="instructions" style="max-width:800px; margin:20px auto; padding:10px; background:#f0f0f0; border-radius:8px;">
+  <h2>Instructions :</h2>
+  <ol>
+    <li>Poussez le slider <strong>Classique</strong> jusqu’à 4 et observez le comportement des poissons.
+        Regardez aussi la page <em>Infos</em> pour voir le niveau de bruit.<br><br></li>
+    <li>Continuez avec le slider <strong>Classique</strong> jusqu’à 6, vérifiez le comportement.<br><br></li>
+    <li>Rentrer le slider Classique (0) et faites la même chose avec le slider <strong>Greenov</strong> et comparez l'impact.<br><br></li>
+    <li>Poussez finalement le slider <strong>Classique</strong> au max pour voir la différence <br>
+        et comment la solution Greenov peut aider.</li>
+  </ol>
+</div>
+
+<!-- Notre script p5 + boids + broadcast -->
+<script src="/js/oceansim.js"></script>
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  // Récupérer ?zone=...
+  const params = new URLSearchParams(window.location.search);
+  const zoneName = params.get('zone') || "Inconnue";
+
+  fetch('/datas/zones_maritimes.json')
+    .then(r => r.json())
+    .then(data => {
+      let found = data.features.find(f => f.properties.nom === zoneName);
+      if(found){
+        document.getElementById('zoneTitle').textContent
+          = "Zone : " + found.properties.nom;
+        document.getElementById('zoneSuperficie').textContent
+          = "Superficie : " + found.properties.superficie;
+        document.getElementById('zoneEcosysteme').textContent
+          = "Écosystème : " + found.properties.ecosysteme;
+      } else {
+        document.getElementById('zoneTitle').textContent
+          = "Zone : " + zoneName + " (non trouvée)";
+        document.getElementById('zoneSuperficie').textContent = "";
+        document.getElementById('zoneEcosysteme').textContent = "";
+      }
+    })
+    .catch(err => {
+      console.error("Erreur chargement JSON:", err);
+    });
+});
+</script>
+
+</body>
+</html>
